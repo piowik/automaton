@@ -74,9 +74,11 @@ Aplikacja powinna być wyposażona w interfejs <abbr title="Graphical User Inter
 
 <p>
 Diagram klas reprezentujący główną logikę aplikacji (klasy nie mają wyspecyfikowanych konstruktorów i setterów/getterów, dodatkowo klasy VonNeumanNeighborhood i MooreNeighborhood zostały zaznaczone schematycznie, bez specyfikacji pól. W celu poprawnego działania
-należy podać im również wielkość planszy):
+należy podać im również wielkość planszy):</p>
+<p>
 <a href="http://home.agh.edu.pl/~mwypych/lib/exe/fetch.php?media=zimowy:java2015:labs:automaton.png" class="media" title="zimowy:java2015:labs:automaton.png"><img src="http://home.agh.edu.pl/~mwypych/lib/exe/fetch.php?w=400&amp;tok=d50258&amp;media=zimowy:java2015:labs:automaton.png" class="mediacenter" alt="" width="400" /></a>
 </p>
-<p>Diagram sekwencji opisujący działanie metody nextState klasy Automaton (nie uwzlędnia pełnej inicjalizacji CellIterator i nie zagłębia się w metodę <em>next</em> klasy CellIterator):
+<p>Diagram sekwencji opisujący działanie metody nextState klasy Automaton (nie uwzlędnia pełnej inicjalizacji CellIterator i nie zagłębia się w metodę <em>next</em> klasy CellIterator):</p>
+<p>
 <a href="http://home.agh.edu.pl/~mwypych/lib/exe/fetch.php?media=zimowy:java2015:labs:automaton-seq.png" class="media" title="zimowy:java2015:labs:automaton-seq.png"><img src="http://home.agh.edu.pl/~mwypych/lib/exe/fetch.php?w=400&amp;tok=16cb6d&amp;media=zimowy:java2015:labs:automaton-seq.png" class="mediacenter" alt="" width="400" /></a>
 </p>
