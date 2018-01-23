@@ -2,7 +2,7 @@ package automaton;
 
 import java.util.Set;
 
-public class GameOfLife {
+public class GameOfLife extends Automaton2Dim {
     protected Automaton newInstance(CellStateFactory cellStateFactory, CellNeighborhood cellNeighborhood) {
         // TODO: GameOfLife: newIstance
     }

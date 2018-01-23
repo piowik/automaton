@@ -17,7 +17,7 @@ public abstract class Automaton {
     }
 
     public void insertStructure(Map<? extends CellCoordinates, ? extends CellState> structure){
-
+        //TODO
     }
 
 
@@ -26,7 +26,7 @@ public abstract class Automaton {
     }
 
 
-    protected abstract Automaton newInstance(CellStateFactory ,CellNeighborhood );
+    protected abstract Automaton newInstance(CellStateFactory cellStateFactory ,CellNeighborhood cellNeighborhood);
 
     protected abstract boolean hasNextCoordinates(CellCoordinates coords);
 

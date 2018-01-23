@@ -2,7 +2,7 @@ package automaton;
 
 import java.util.Set;
 
-public class WireWorld {
+public class WireWorld extends Automaton2Dim {
     protected Automaton newInstance(CellStateFactory cellStateFactory, CellNeighborhood cellNeighborhood) {
         // TODO: WireWorld: newIstance
     }
