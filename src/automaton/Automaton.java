@@ -15,8 +15,23 @@ public abstract class Automaton {
         this.stateFactory = stateFactory;
     }
 
+//    Automaton(Map<CellCoordinates, CellState> cells) {
+//        this.cells = cells;
+//    }
+
     public Automaton nextState() {
-        //TODO
+        // TODO: check
+        Automaton newAuto = newInstance(stateFactory, neighborsStrategy);
+        CellIterator iterator = newAuto.cellIterator();
+        while (iterator.hasNext()) {
+            Cell c = iterator.next();
+            Set<CellCoordinates> neighbors = neighborsStrategy.cellNeighborhood(c.coords);
+            Set<Cell> mappedNeighbors = mapCoordinates(neighbors);
+            CellState newState = nextCellState(c.state, mappedNeighbors);
+            iterator.setState(newState);
+//            iterator.next();
+        }
+        return newAuto;
     }
 
     public void insertStructure(Map<? extends CellCoordinates, ? extends CellState> structure) {
@@ -29,7 +44,7 @@ public abstract class Automaton {
     }
 
 
-    protected abstract Automaton newInstance(CellStateFactory cellStateFactory, CellNeighborhood cellNeighborhood);
+    protected abstract Automaton newInstance(CellStateFactory cellStateFactory, CellNeighborhood neighborsStrategy);
 
     protected abstract boolean hasNextCoordinates(CellCoordinates coords);
 
@@ -42,7 +57,7 @@ public abstract class Automaton {
     private Set<Cell> mapCoordinates(Set<CellCoordinates> coords) {
         Set<Cell> cellsTreeSet = new TreeSet<>();
         for (CellCoordinates coordinates : coords)
-            cellsTreeSet.add(new Cell(cells.get(coordinates),coordinates));
+            cellsTreeSet.add(new Cell(cells.get(coordinates), coordinates));
         return cellsTreeSet;
     }
 
@@ -53,9 +68,9 @@ public abstract class Automaton {
             return hasNextCoordinates(currentCoords);
         }
 
-        public void next() {
-            if (hasNext())
-                currentCoords = nextCoordinates(currentCoords);
+        public Cell next() {
+            currentCoords = nextCoordinates(currentCoords);
+            return new Cell(cells.get(currentCoords),currentCoords);
         }
 
         public void setState(CellState newState) {
