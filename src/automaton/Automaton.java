@@ -40,7 +40,10 @@ public abstract class Automaton {
     protected abstract CellState nextCellState(CellState currentState, Set<Cell> neighborsStates);
 
     private Set<Cell> mapCoordinates(Set<CellCoordinates> coords) {
-        // TODO
+        Set<Cell> cellsTreeSet = new TreeSet<>();
+        for (CellCoordinates coordinates : coords)
+            cellsTreeSet.add(new Cell(cells.get(coordinates),coordinates));
+        return cellsTreeSet;
     }
 
     class CellIterator {
