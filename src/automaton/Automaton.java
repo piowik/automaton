@@ -1,8 +1,15 @@
 package automaton;
 
+import java.util.Map;
+
 public abstract class Automaton {
+   private Map<CellCoordinates,CellState> cells;
+
+   private CellNeighborhood neighborsStrategy;
+
+
     public Automaton nextState() {
-        return this;
+        //TODO
     }
 
 
