@@ -1,4 +1,4 @@
 package automaton;
 
-public abstract class Automaton2Dim {
+public abstract class Automaton2Dim extends Automaton {
 }
