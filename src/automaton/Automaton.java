@@ -2,23 +2,18 @@ package automaton;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 public abstract class Automaton {
-
-
-    public Automaton(Map<CellCoordinates,CellState> cells, CellNeighborhood neighborsStrategy, CellStateFactory stateFactory)
-    {
-        this.cells= cells;
-        this.neighborsStrategy=neighborsStrategy;
-        this.stateFactory=stateFactory;
-    }
-
     private Map<CellCoordinates, CellState> cells;
-
     private CellNeighborhood neighborsStrategy;
-
     private CellStateFactory stateFactory;
 
+    public Automaton(Map<CellCoordinates, CellState> cells, CellNeighborhood neighborsStrategy, CellStateFactory stateFactory) {
+        this.cells = cells;
+        this.neighborsStrategy = neighborsStrategy;
+        this.stateFactory = stateFactory;
+    }
 
     public Automaton nextState() {
         //TODO
@@ -30,7 +25,7 @@ public abstract class Automaton {
 
 
     public CellIterator cellIterator() {
-        //TODO
+        return new CellIterator();
     }
 
 
@@ -45,24 +40,23 @@ public abstract class Automaton {
     protected abstract CellState nextCellState(CellState currentState, Set<Cell> neighborsStates);
 
     private Set<Cell> mapCoordinates(Set<CellCoordinates> coords) {
-        //TODO
+        // TODO
     }
 
     class CellIterator {
-        private CellState currentState; // TODO: rozbieżność
+        private CellCoordinates currentCoords;
 
         public boolean hasNext() {
-            // TODO: hasNext
-            return true;
+            return hasNextCoordinates(currentCoords);
         }
 
-        public Cell next() {
-            // TODO: next
-            return new Cell();
+        public void next() {
+            if (hasNext())
+                currentCoords = nextCoordinates(currentCoords);
         }
 
         public void setState(CellState newState) {
-            currentState = newState;
+            cells.put(currentCoords, newState);
         }
 
     }
