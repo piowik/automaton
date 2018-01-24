@@ -15,9 +15,8 @@ public abstract class Automaton2Dim extends Automaton {
         return (!(coords.x == width-1 && coords.y == height-1));
     }
 
-    protected CellCoordinates initialCoordinates(CellCoordinates cellCoordinates) {
-        Coords2D coords = (Coords2D)cellCoordinates;
-        return coords;
+    protected CellCoordinates initialCoordinates() {
+        return new Coords2D(-1,0);
     }
 
     protected CellCoordinates nextCoordinates(CellCoordinates cellCoordinates) {

@@ -18,6 +18,11 @@ public abstract class Automaton {
 //        this.cells = cells;
 //    }
 
+
+    public Map<CellCoordinates, CellState> getCells() {
+        return cells;
+    }
+
     public Automaton nextState() {
         // TODO: check
         Automaton newAuto = newInstance(stateFactory, neighborsStrategy);
@@ -47,7 +52,7 @@ public abstract class Automaton {
 
     protected abstract boolean hasNextCoordinates(CellCoordinates coords);
 
-    protected abstract CellCoordinates initialCoordinates(CellCoordinates coords);
+    protected abstract CellCoordinates initialCoordinates();
 
     protected abstract CellCoordinates nextCoordinates(CellCoordinates coords);
 
@@ -61,7 +66,7 @@ public abstract class Automaton {
     }
 
     class CellIterator {
-        private CellCoordinates currentCoords;
+        private CellCoordinates currentCoords = initialCoordinates();
 
         public boolean hasNext() {
             return hasNextCoordinates(currentCoords);
