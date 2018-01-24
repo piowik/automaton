@@ -19,7 +19,6 @@ public class MoorNeighborhood implements CellNeighborhood {
     public Set<CellCoordinates> cellNeighborhood(CellCoordinates cellCoordinates) {
         Coords2D coords = (Coords2D) cellCoordinates;
         Set<CellCoordinates> neighbors = new HashSet<>();
-        System.out.println("R: " + r);
         for (int i = -r; i <= r; i++) {
             for (int j = -r; j <= r; j++) {
                 if (i == 0 && j == 0)
