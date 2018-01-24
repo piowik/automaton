@@ -5,12 +5,17 @@ import java.util.Set;
 import static automaton.WireElectronState.*;
 
 public class WireWorld extends Automaton2Dim {
-    public WireWorld(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory) {
-        super(neighborsStrategy, stateFactory);
+    private int width;
+    private int height;
+
+    public WireWorld(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory, int width, int height) {
+        super(neighborsStrategy, stateFactory, width, height);
+        this.width = width;
+        this.height = height;
     }
 
     protected Automaton newInstance(CellStateFactory cellStateFactory, CellNeighborhood cellNeighborhood) {
-        WireWorld newInstance = new WireWorld(cellNeighborhood,cellStateFactory);
+        WireWorld newInstance = new WireWorld(cellNeighborhood, cellStateFactory, width, height);
         return newInstance;
     }
 
@@ -30,8 +35,7 @@ public class WireWorld extends Automaton2Dim {
                 return ELECTRON_HEAD;
             else
                 return WIRE;
-        }
-        else
+        } else
             return VOID;
     }
 }

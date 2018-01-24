@@ -4,9 +4,10 @@ public abstract class Automaton2Dim extends Automaton {
     private int width;
     private int height;
 
-    public Automaton2Dim(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory) {
+    public Automaton2Dim(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory, int width, int height) {
         super(neighborsStrategy, stateFactory);
-        //TODO: set width and height
+        this.width = width;
+        this.height = height;
         super.initializeMap(); // cannot initialize before setting map dimensions
     }
 
