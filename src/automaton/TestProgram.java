@@ -5,27 +5,29 @@ import java.util.Map;
 
 import static automaton.BinaryState.ALIVE;
 import static automaton.BinaryState.DEAD;
+import static automaton.WireElectronState.ELECTRON_HEAD;
+import static automaton.WireElectronState.WIRE;
 
 public class TestProgram {
     public static void main(String[] argv) {
         int width = 3;
         int height = 3;
-        UniformStateFactory uniformStateFactory = new UniformStateFactory(DEAD);
+        UniformStateFactory uniformStateFactory = new UniformStateFactory(WIRE);
         MoorNeighborhood moorNeighborhood = new MoorNeighborhood(width, height, false, 1);
-        GameOfLife newGame = new GameOfLife(moorNeighborhood, uniformStateFactory, width, height);
+        WireWorld newGame = new WireWorld(moorNeighborhood, uniformStateFactory, width, height);
         Map<CellCoordinates, CellState> cellsMap = newGame.getCells();
         System.out.println("Reading returned map (Size " + cellsMap.size() + ")");
         System.out.println("Iterating entrySet");
         printMap(cellsMap);
         CellCoordinates testItem = new Coords2D(1,1);
-        CellState testItemState = ALIVE;
+        CellState testItemState = ELECTRON_HEAD;
         Map<CellCoordinates,CellState> testItemMap = new HashMap<>();
         testItemMap.put(testItem,testItemState);
         newGame.insertStructure(testItemMap);
         cellsMap = newGame.getCells();
         System.out.println("Printing after inserting structure");
         printMap(cellsMap);
-        newGame = (GameOfLife)newGame.nextState();
+        newGame = (WireWorld) newGame.nextState();
         cellsMap = newGame.getCells();
         System.out.println("Printing after nextState");
         printMap(cellsMap);
