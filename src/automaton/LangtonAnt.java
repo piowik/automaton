@@ -16,9 +16,36 @@ public class LangtonAnt extends Automaton2Dim{
     }
 
     protected CellState nextCellState(CellState currentState, Set<Cell> neighborsStates) {
-        if (currentState == DEAD)
-            return ALIVE;
+        if (currentState instanceof LangtonCell) {
+            LangtonCell antCell = (LangtonCell) currentState;
+            AntState antState = antCell.antState;
+            AntState newState = AntState.NONE;
+            if (antCell.cellState == DEAD) {// white
+                if (antState == AntState.NORTH)
+                    newState = AntState.EAST;
+                else if (antState == AntState.EAST)
+                    newState = AntState.SOUTH;
+                else if (antState == AntState.SOUTH)
+                    newState = AntState.WEST;
+                else if (antState == AntState.WEST)
+                    newState = AntState.NORTH;
+                antCell.antState = newState;
+                return ALIVE;
+            }
+            else{// black
+                if (antState == AntState.NORTH)
+                    newState = AntState.WEST;
+                else if (antState == AntState.EAST)
+                    newState = AntState.NORTH;
+                else if (antState == AntState.SOUTH)
+                    newState = AntState.EAST;
+                else if (antState == AntState.WEST)
+                    newState = AntState.SOUTH;
+                antCell.antState = newState;
+                return DEAD;
+            }
+        }
         else
-            return DEAD;
+            return currentState;
     }
 }
