@@ -1,15 +1,15 @@
 package automaton;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 
 public abstract class Automaton {
     private Map<CellCoordinates, CellState> cells;
     private CellNeighborhood neighborsStrategy;
     private CellStateFactory stateFactory;
 
-    public Automaton( CellNeighborhood neighborsStrategy, CellStateFactory stateFactory) {
+    public Automaton(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory) {
         this.neighborsStrategy = neighborsStrategy;
         this.stateFactory = stateFactory;
     }
@@ -54,10 +54,10 @@ public abstract class Automaton {
     protected abstract CellState nextCellState(CellState currentState, Set<Cell> neighborsStates);
 
     private Set<Cell> mapCoordinates(Set<CellCoordinates> coords) {
-        Set<Cell> cellsTreeSet = new TreeSet<>();
+        Set<Cell> cellsHashSet = new HashSet<>();
         for (CellCoordinates coordinates : coords)
-            cellsTreeSet.add(new Cell(cells.get(coordinates), coordinates));
-        return cellsTreeSet;
+            cellsHashSet.add(new Cell(cells.get(coordinates), coordinates));
+        return cellsHashSet;
     }
 
     class CellIterator {
@@ -69,7 +69,7 @@ public abstract class Automaton {
 
         public Cell next() {
             currentCoords = nextCoordinates(currentCoords);
-            return new Cell(cells.get(currentCoords),currentCoords);
+            return new Cell(cells.get(currentCoords), currentCoords);
         }
 
         public void setState(CellState newState) {
