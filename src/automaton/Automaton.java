@@ -1,11 +1,12 @@
 package automaton;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 public abstract class Automaton {
-    private Map<CellCoordinates, CellState> cells;
+    private Map<CellCoordinates, CellState> cells = new HashMap<>();
     private CellNeighborhood neighborsStrategy;
     private CellStateFactory stateFactory;
 
