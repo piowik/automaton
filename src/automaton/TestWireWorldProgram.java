@@ -6,14 +6,14 @@ import java.util.Map;
 import static automaton.BinaryState.ALIVE;
 import static automaton.BinaryState.DEAD;
 
-public class TestProgram {
+public class TestWireWorldProgram {
     static int width = 3;
     static int height = 3;
     public static void main(String[] argv) {
 
-        UniformStateFactory uniformStateFactory = new UniformStateFactory(DEAD);
+        UniformStateFactory uniformStateFactory = new UniformStateFactory(WireElectronState.VOID);
         MoorNeighborhood moorNeighborhood = new MoorNeighborhood(width, height, false, 1);
-        GameOfLife newGame = new GameOfLife(moorNeighborhood, uniformStateFactory, width, height);
+        WireWorld newGame = new WireWorld(moorNeighborhood, uniformStateFactory, width, height);
         Map<CellCoordinates, CellState> cellsMap = newGame.getCells();
         System.out.println("Reading returned map (Size " + cellsMap.size() + ")");
         System.out.println("Iterating entrySet");
@@ -24,15 +24,15 @@ public class TestProgram {
         // blinker (oscylator)
         // https://upload.wikimedia.org/wikipedia/commons/c/c2/2-3_O1.gif
         CellCoordinates testItem = new Coords2D(1,1);
-        CellState testItemState = ALIVE;
+        CellState testItemState = WireElectronState.WIRE;
         testStructure.put(testItem,testItemState);
 
         CellCoordinates testItem2 = new Coords2D(1,0);
-        CellState testItemState2 = ALIVE;
+        CellState testItemState2 = WireElectronState.WIRE;
         testStructure.put(testItem2,testItemState2);
 
         CellCoordinates testItem3 = new Coords2D(1,2);
-        CellState testItemState3 = ALIVE;
+        CellState testItemState3 = WireElectronState.ELECTRON_HEAD;
         testStructure.put(testItem3,testItemState3);
 
         newGame.insertStructure(testStructure);
@@ -40,8 +40,8 @@ public class TestProgram {
         System.out.println("Printing after inserting structure");
         drawMap(cellsMap);
 
-        for(int i = 0; i < 6; i++) {
-            newGame = (GameOfLife) newGame.nextState();
+        for(int i = 0; i < 4; i++) {
+            newGame = (WireWorld) newGame.nextState();
             cellsMap = newGame.getCells();
             System.out.println("Printing after iteration " + i);
             drawMap(cellsMap);
