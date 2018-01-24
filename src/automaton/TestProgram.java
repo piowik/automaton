@@ -25,7 +25,8 @@ public class TestProgram {
         cellsMap = newGame.getCells();
         System.out.println("Printing after inserting structure");
         printMap(cellsMap);
-        newGame.nextState();
+        newGame = (GameOfLife)newGame.nextState();
+        cellsMap = newGame.getCells();
         System.out.println("Printing after nextState");
         printMap(cellsMap);
 
