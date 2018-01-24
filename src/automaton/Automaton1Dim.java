@@ -5,6 +5,7 @@ public abstract class Automaton1Dim extends Automaton {
 
     public Automaton1Dim(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory) {
         super(neighborsStrategy, stateFactory);
+        super.initializeMap();
     }
 
     protected boolean hasNextCoordinates(CellCoordinates cellCoordinates) {
@@ -19,7 +20,7 @@ public abstract class Automaton1Dim extends Automaton {
     protected CellCoordinates nextCoordinates(CellCoordinates cellCoordinates) {
         Coords1D coords = (Coords1D) cellCoordinates;
         coords.x += 1;
-        return coords;
+        return new Coords1D(coords.x+1);
     }
 }
 
