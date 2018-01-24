@@ -13,11 +13,15 @@ public abstract class Automaton {
     public Automaton(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory) {
         this.neighborsStrategy = neighborsStrategy;
         this.stateFactory = stateFactory;
+    }
+
+    protected void initializeMap() {
         // map initialization
         CellIterator iterator = cellIterator();
         while (iterator.hasNext()) {
             CellCoordinates cellCoords = iterator.next();
-            cells.put(cellCoords,stateFactory.initialState(cellCoords));
+            CellState state = stateFactory.initialState(cellCoords);
+            cells.put(cellCoords,state);
         }
     }
 
