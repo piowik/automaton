@@ -22,11 +22,13 @@ public abstract class Automaton2Dim extends Automaton {
 
     protected CellCoordinates nextCoordinates(CellCoordinates cellCoordinates) {
         Coords2D coords = (Coords2D) cellCoordinates;
+        int newX = coords.x;
+        int newY = coords.y;
         if (coords.x == (width - 1)) {
-            coords.x = 0;
-            coords.y += 1;
+            newX = 0;
+            newY += 1;
         } else
-            coords.x += 1;
-        return new Coords2D(coords.x,coords.y);
+            newX += 1;
+        return new Coords2D(newX, newY);
     }
 }

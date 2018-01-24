@@ -19,8 +19,9 @@ public abstract class Automaton1Dim extends Automaton {
 
     protected CellCoordinates nextCoordinates(CellCoordinates cellCoordinates) {
         Coords1D coords = (Coords1D) cellCoordinates;
-        coords.x += 1;
-        return new Coords1D(coords.x+1);
+        int newX = coords.x;
+        newX += 1;
+        return new Coords1D(newX);
     }
 }
 
