@@ -1,23 +1,25 @@
 package automaton;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 public abstract class Automaton {
-    private Map<CellCoordinates, CellState> cells;
+    private Map<CellCoordinates, CellState> cells = new HashMap<>();
     private CellNeighborhood neighborsStrategy;
     private CellStateFactory stateFactory;
 
     public Automaton(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory) {
         this.neighborsStrategy = neighborsStrategy;
         this.stateFactory = stateFactory;
+        // map initialization
+        CellIterator iterator = cellIterator();
+        while (iterator.hasNext()) {
+            CellCoordinates cellCoords = iterator.next();
+            cells.put(cellCoords,stateFactory.initialState(cellCoords));
+        }
     }
-
-//    Automaton(Map<CellCoordinates, CellState> cells) {
-//        this.cells = cells;
-//    }
-
 
     public Map<CellCoordinates, CellState> getCells() {
         return cells;
@@ -28,8 +30,9 @@ public abstract class Automaton {
         Automaton newAuto = newInstance(stateFactory, neighborsStrategy);
         CellIterator iterator = newAuto.cellIterator();
         while (iterator.hasNext()) {
-            Cell c = iterator.next();
-            Set<CellCoordinates> neighbors = neighborsStrategy.cellNeighborhood(c.coords);
+            CellCoordinates cellCoords = iterator.next();
+            Cell c = new Cell(cells.get(cellCoords), cellCoords); // cell - state stored in cells map
+            Set<CellCoordinates> neighbors = neighborsStrategy.cellNeighborhood(cellCoords);
             Set<Cell> mappedNeighbors = mapCoordinates(neighbors);
             CellState newState = nextCellState(c, mappedNeighbors);
             iterator.setState(newState);
@@ -39,7 +42,10 @@ public abstract class Automaton {
     }
 
     public void insertStructure(Map<? extends CellCoordinates, ? extends CellState> structure) {
-        //TODO
+        for (Map.Entry<? extends CellCoordinates, ? extends CellState> entry : structure.entrySet())
+        {
+            cells.put(entry.getKey(), entry.getValue());
+        }
     }
 
 
@@ -72,9 +78,9 @@ public abstract class Automaton {
             return hasNextCoordinates(currentCoords);
         }
 
-        public Cell next() {
+        public CellCoordinates next() {
             currentCoords = nextCoordinates(currentCoords);
-            return new Cell(cells.get(currentCoords), currentCoords);
+            return currentCoords;
         }
 
         public void setState(CellState newState) {
