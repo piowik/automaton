@@ -1,7 +1,8 @@
 package automaton;
 
+import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
+
 
 public class VonNeumanNeighborhood implements CellNeighborhood{
 
@@ -9,20 +10,20 @@ public class VonNeumanNeighborhood implements CellNeighborhood{
     VonNeumanNeighborhood(int width, int height, boolean wrap, int r) {
         this.width=width;
         this.height=height;
-        this.weap=wrap;
+        this.wrap=wrap;
         this.r=r;
     }
     private int width;
     private int height;
-    private boolean weap;
+    private boolean wrap;
     private int r;
 
 public Set<CellCoordinates> cellNeighbors(CellCoordinates cellCoordinates){
-    Set<CellCoordinates> neighbors = new TreeSet<>();
+    Set<CellCoordinates> neighbors = new HashSet<>();
     Coords2D coords = (Coords2D) cellCoordinates;
     for(int i=0;i<width;i++)
         for(int j=0;j<height;j++)
-            if((Math.abs(i-coords.x)+Math.abs(j-coords.y))<=r)
+            if((Math.abs(i-coords.x)+Math.abs(j-coords.y))<=r&&(Math.abs(i-coords.x)+Math.abs(j-coords.y))!=0)
                 neighbors.add(new Coords2D(i,j));
 
     return neighbors;
