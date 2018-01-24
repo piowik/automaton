@@ -42,7 +42,10 @@ public abstract class Automaton {
     }
 
     public void insertStructure(Map<? extends CellCoordinates, ? extends CellState> structure) {
-        //TODO
+        for (Map.Entry<? extends CellCoordinates, ? extends CellState> entry : structure.entrySet())
+        {
+            cells.put(entry.getKey(), entry.getValue());
+        }
     }
 
 
