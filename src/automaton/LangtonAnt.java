@@ -6,12 +6,17 @@ import static automaton.BinaryState.ALIVE;
 import static automaton.BinaryState.DEAD;
 
 public class LangtonAnt extends Automaton2Dim {
-    public LangtonAnt(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory) {
-        super(neighborsStrategy, stateFactory);
+    private int width;
+    private int height;
+
+    public LangtonAnt(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory, int width, int height) {
+        super(neighborsStrategy, stateFactory, width, height);
+        this.width = width;
+        this.height = height;
     }
 
     protected Automaton newInstance(CellStateFactory cellStateFactory, CellNeighborhood cellNeighborhood) {
-        LangtonAnt newInstance = new LangtonAnt(cellNeighborhood, cellStateFactory);
+        LangtonAnt newInstance = new LangtonAnt(cellNeighborhood, cellStateFactory, width, height);
         return newInstance;
     }
 
