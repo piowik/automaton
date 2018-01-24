@@ -18,7 +18,7 @@ public class VonNeumanNeighborhood implements CellNeighborhood{
     private boolean wrap;
     private int r;
 
-public Set<CellCoordinates> cellNeighbors(CellCoordinates cellCoordinates){
+public Set<CellCoordinates> cellNeighborhood(CellCoordinates cellCoordinates){
     Set<CellCoordinates> neighbors = new HashSet<>();
     Coords2D coords = (Coords2D) cellCoordinates;
     for(int i=0;i<width;i++)

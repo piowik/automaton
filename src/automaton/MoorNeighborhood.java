@@ -16,7 +16,7 @@ public class MoorNeighborhood implements CellNeighborhood {
         this.r = r;
     }
 
-    public Set<CellCoordinates> cellNeighbors(CellCoordinates cellCoordinates) {
+    public Set<CellCoordinates> cellNeighborhood(CellCoordinates cellCoordinates) {
         Coords2D coords = (Coords2D) cellCoordinates;
         Set<CellCoordinates> neighbors = new HashSet<>();
         System.out.println("R: " + r);
@@ -36,7 +36,7 @@ public class MoorNeighborhood implements CellNeighborhood {
     public static void main(String[] argv) {
         CellCoordinates test2D = new Coords2D(3, 3);
         MoorNeighborhood moorNeighborhood = new MoorNeighborhood(100, 100, false, 2);
-        Set<CellCoordinates> neighborsTest = moorNeighborhood.cellNeighbors(test2D);
+        Set<CellCoordinates> neighborsTest = moorNeighborhood.cellNeighborhood(test2D);
         for (CellCoordinates coord : neighborsTest) {
             Coords2D coords = (Coords2D) coord;
             System.out.println("[" + coords.x + ";" + coords.y + "]");
