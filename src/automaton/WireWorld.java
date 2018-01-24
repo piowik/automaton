@@ -14,8 +14,8 @@ public class WireWorld extends Automaton2Dim {
         return newInstance;
     }
 
-    protected CellState nextCellState(CellState currentState, Set<Cell> neighborsStates) {
-//        WireElectronState state = (WireElectronState) currentState;
+    protected CellState nextCellState(Cell targetCell, Set<Cell> neighborsStates) {
+        CellState currentState = targetCell.state;
         if (currentState == ELECTRON_HEAD)
             return ELECTRON_TAIL;
         else if (currentState == ELECTRON_TAIL)

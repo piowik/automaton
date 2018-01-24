@@ -15,7 +15,8 @@ public class GameOfLife extends Automaton2Dim {
         GameOfLife newInstance = new GameOfLife(cellNeighborhood,cellStateFactory);
         return newInstance;
     }
-    protected CellState nextCellState(CellState currentState, Set<Cell> neighborsStates) {
+    protected CellState nextCellState(Cell targetCell, Set<Cell> neighborsStates) {
+        CellState currentState = targetCell.state;
         int neighborsAlive =0;
         for(Cell c : neighborsStates)
         {

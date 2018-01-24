@@ -26,7 +26,7 @@ public abstract class Automaton {
             Cell c = iterator.next();
             Set<CellCoordinates> neighbors = neighborsStrategy.cellNeighborhood(c.coords);
             Set<Cell> mappedNeighbors = mapCoordinates(neighbors);
-            CellState newState = nextCellState(c.state, mappedNeighbors);
+            CellState newState = nextCellState(c, mappedNeighbors);
             iterator.setState(newState);
 //            iterator.next();
         }
@@ -51,7 +51,7 @@ public abstract class Automaton {
 
     protected abstract CellCoordinates nextCoordinates(CellCoordinates coords);
 
-    protected abstract CellState nextCellState(CellState currentState, Set<Cell> neighborsStates);
+    protected abstract CellState nextCellState(Cell targetCell, Set<Cell> neighborsStates);
 
     private Set<Cell> mapCoordinates(Set<CellCoordinates> coords) {
         Set<Cell> cellsHashSet = new HashSet<>();

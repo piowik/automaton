@@ -15,7 +15,8 @@ public class LangtonAnt extends Automaton2Dim{
         return newInstance;
     }
 
-    protected CellState nextCellState(CellState currentState, Set<Cell> neighborsStates) {
+    protected CellState nextCellState(Cell targetCell, Set<Cell> neighborsStates) {
+        CellState currentState = targetCell.state;
         if (currentState instanceof LangtonCell) {
             LangtonCell antCell = (LangtonCell) currentState;
             AntState antState = antCell.antState;
