@@ -2,6 +2,7 @@ package automaton;
 
 import java.util.Set;
 
+import static automaton.BinaryState.ALIVE;
 import static automaton.BinaryState.DEAD;
 
 public class LangtonAnt extends Automaton2Dim {
@@ -19,6 +20,7 @@ public class LangtonAnt extends Automaton2Dim {
 
         LangtonCell antCell;
         AntState antstate;
+        int antid;
         Coords2D antcoords;
         Coords2D targetcoords = (Coords2D) targetCell.coords;
         boolean isAnt = false;
@@ -27,6 +29,7 @@ public class LangtonAnt extends Automaton2Dim {
             if (c.state instanceof LangtonCell) {
                 antCell = (LangtonCell) c.state;
                 antstate = antCell.antState;
+                antid = antCell.antId;
                 antcoords = (Coords2D) c.coords;
                 if ((antstate == AntState.WEST && (targetcoords.x == antcoords.x - 1))
                         || (antstate == AntState.EAST && (targetcoords.x - 1 == antcoords.x))
@@ -48,7 +51,7 @@ public class LangtonAnt extends Automaton2Dim {
                                 break;
 
                         }
-                        return
+                        return new LangtonCell(antstate, antid, ALIVE);
                     } else {
                         switch (antstate) {
                             case EAST:
@@ -65,47 +68,14 @@ public class LangtonAnt extends Automaton2Dim {
                                 break;
 
                         }
-                        return
+                        return new LangtonCell(antstate, antid, DEAD);
                     }
                 } else {
-
+                    return targetCell.state;
                 }
 
-            } else
-                return targetCell.state;
-        }
-
-
-       /* if (currentState instanceof LangtonCell) {
-            LangtonCell antCell = (LangtonCell) currentState;
-            AntState antState = antCell.antState;
-            AntState newState = AntState.NONE;
-            if (antCell.cellState == DEAD) {// white
-                if (antState == AntState.NORTH)
-                    newState = AntState.EAST;
-                else if (antState == AntState.EAST)
-                    newState = AntState.SOUTH;
-                else if (antState == AntState.SOUTH)
-                    newState = AntState.WEST;
-                else if (antState == AntState.WEST)
-                    newState = AntState.NORTH;
-                antCell.antState = newState;
-                return ALIVE;
-            }
-            else{// black
-                if (antState == AntState.NORTH)
-                    newState = AntState.WEST;
-                else if (antState == AntState.EAST)
-                    newState = AntState.NORTH;
-                else if (antState == AntState.SOUTH)
-                    newState = AntState.EAST;
-                else if (antState == AntState.WEST)
-                    newState = AntState.SOUTH;
-                antCell.antState = newState;
-                return DEAD;
             }
         }
-        else
-            return currentState;*/
+        return targetCell.state;
     }
 }
