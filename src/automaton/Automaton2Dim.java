@@ -1,8 +1,14 @@
 package automaton;
 
+import java.util.Map;
+
 public abstract class Automaton2Dim extends Automaton {
     private int width;
     private int height;
+
+    public Automaton2Dim(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory) {
+        super(neighborsStrategy, stateFactory);
+    }
 
     protected boolean hasNextCoordinates(CellCoordinates cellCoordinates) {
         Coords2D coords = (Coords2D)cellCoordinates;
@@ -11,7 +17,7 @@ public abstract class Automaton2Dim extends Automaton {
 
     protected CellCoordinates initialCoordinates(CellCoordinates cellCoordinates) {
         Coords2D coords = (Coords2D)cellCoordinates;
-        // TODO: Automaton2Dim: initialCoordinates
+        return coords;
     }
 
     protected CellCoordinates nextCoordinates(CellCoordinates cellCoordinates) {

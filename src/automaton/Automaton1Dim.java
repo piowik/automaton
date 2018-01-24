@@ -3,15 +3,24 @@ package automaton;
 public abstract class Automaton1Dim extends Automaton {
     private int size;
 
-    protected boolean hasNextCoordinates(CellCoordinates cell) {
-        // TODO: Automaton1Dim: hasNextCoordinates
+    public Automaton1Dim(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory) {
+        super(neighborsStrategy, stateFactory);
     }
 
-    protected CellCoordinates initialCoordinates(CellCoordinates cell) {
-        // TODO: Automaton1Dim: initialCoordinates
+    protected boolean hasNextCoordinates(CellCoordinates cellCoordinates) {
+        Coords1D coords = (Coords1D) cellCoordinates;
+        return (!(coords.x == size - 1));
     }
 
-    protected CellCoordinates nextCoordinates(CellCoordinates cell) {
-        // TODO: Automaton1Dim: nextCoordinates
+    protected CellCoordinates initialCoordinates(CellCoordinates cellCoordinates) {
+        Coords1D coords = (Coords1D) cellCoordinates;
+        return coords;
+    }
+
+    protected CellCoordinates nextCoordinates(CellCoordinates cellCoordinates) {
+        Coords1D coords = (Coords1D) cellCoordinates;
+        coords.x += 1;
+        return coords;
     }
 }
+

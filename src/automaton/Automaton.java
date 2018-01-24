@@ -9,8 +9,7 @@ public abstract class Automaton {
     private CellNeighborhood neighborsStrategy;
     private CellStateFactory stateFactory;
 
-    public Automaton(Map<CellCoordinates, CellState> cells, CellNeighborhood neighborsStrategy, CellStateFactory stateFactory) {
-        this.cells = cells;
+    public Automaton( CellNeighborhood neighborsStrategy, CellStateFactory stateFactory) {
         this.neighborsStrategy = neighborsStrategy;
         this.stateFactory = stateFactory;
     }
