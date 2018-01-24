@@ -12,6 +12,8 @@ public abstract class Automaton {
     public Automaton(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory) {
         this.neighborsStrategy = neighborsStrategy;
         this.stateFactory = stateFactory;
+        // initialize map
+
     }
 
 //    Automaton(Map<CellCoordinates, CellState> cells) {
@@ -28,8 +30,9 @@ public abstract class Automaton {
         Automaton newAuto = newInstance(stateFactory, neighborsStrategy);
         CellIterator iterator = newAuto.cellIterator();
         while (iterator.hasNext()) {
-            Cell c = iterator.next();
-            Set<CellCoordinates> neighbors = neighborsStrategy.cellNeighborhood(c.coords);
+            CellCoordinates cellCoords = iterator.next();
+            Cell c = new Cell(cells.get(cellCoords), cellCoords); // cell - state stored in cells map
+            Set<CellCoordinates> neighbors = neighborsStrategy.cellNeighborhood(cellCoords);
             Set<Cell> mappedNeighbors = mapCoordinates(neighbors);
             CellState newState = nextCellState(c, mappedNeighbors);
             iterator.setState(newState);
@@ -72,9 +75,9 @@ public abstract class Automaton {
             return hasNextCoordinates(currentCoords);
         }
 
-        public Cell next() {
+        public CellCoordinates next() {
             currentCoords = nextCoordinates(currentCoords);
-            return new Cell(cells.get(currentCoords), currentCoords);
+            return currentCoords;
         }
 
         public void setState(CellState newState) {
