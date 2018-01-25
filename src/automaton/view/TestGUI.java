@@ -80,13 +80,18 @@ public class TestGUI {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+                int posX = e.getX() / ZOOM;
+                int posY = e.getY() / ZOOM;
                 if (currentGame instanceof GameOfLife) {
-                    int posX = e.getX() / ZOOM;
-                    int posY = e.getY() / ZOOM;
                     Map<CellCoordinates, CellState> testStructure = GameOfLife.convert(MapReader.readMapFromFile("structure.txt", posX, posY));
                     currentGame.insertStructure(testStructure);
-                    System.out.println(e.getX() + ":" + e.getY());
                 }
+                else if (currentGame instanceof WireWorld) {
+                    Map<CellCoordinates, CellState> testStructure = new HashMap<>();
+                    testStructure.put(new Coords2D(posX,posY),WireElectronState.WIRE);
+                    currentGame.insertStructure(testStructure);
+                }
+                System.out.println("Click");
             }
         });
         JButton nextStepButton = new JButton("Step");//creating instance of JButton
