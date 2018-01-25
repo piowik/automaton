@@ -31,7 +31,41 @@ public class MoorNeighborhood implements CellNeighborhood {
                 neighbors.add(new Coords2D(x, y));
             }
         }
-        //TODO: wrap
-        return neighbors;
+
+        Set<CellCoordinates> fixedNeighbors = new HashSet<>();
+        if(wrap)
+        {
+            for(CellCoordinates n:neighbors ){
+                Coords2D nCoordinates = (Coords2D) n;
+                if(nCoordinates.x<0)
+                    nCoordinates.x=width+nCoordinates.x;
+                if(nCoordinates.y<0)
+                    nCoordinates.y=height+nCoordinates.y;
+                if(nCoordinates.x>=width)
+                    nCoordinates.x=nCoordinates.x-width;
+                if(nCoordinates.y>=height)
+                    nCoordinates.y=nCoordinates.y-height;
+                fixedNeighbors.add(nCoordinates);
+            }
+        }
+        else
+        {
+            boolean isOkay=true;
+            for(CellCoordinates n:neighbors ){
+                isOkay=true;
+                Coords2D nCoordinates = (Coords2D) n;
+                if(nCoordinates.x<0)
+                    isOkay=false;
+                if(nCoordinates.y<0)
+                    isOkay=false;
+                if(nCoordinates.x>=width)
+                    isOkay=false;
+                if(nCoordinates.y>=height)
+                    isOkay=false;
+                if(isOkay)
+                    fixedNeighbors.add(nCoordinates);
+            }
+        }
+        return fixedNeighbors;
     }
 }
