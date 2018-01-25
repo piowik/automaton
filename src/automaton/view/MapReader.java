@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MapReader {
-    public static Map<CellCoordinates, Integer> readMapFromFile(String name) {
+    public static Map<CellCoordinates, Integer> readMapFromFile(String name, int xOffset, int yOffset) {
         String path = "F:\\IntelliJ\\workspace\\java\\Automaton\\src\\automaton\\view\\" + name;
         BufferedReader br = null;
         FileReader fr = null;
@@ -28,7 +28,7 @@ public class MapReader {
                 column = 0;
                 for (int i = 0; i < sCurrentLine.length(); i++) {
                     value = Character.getNumericValue(sCurrentLine.charAt(i));
-                    Coords2D coords2D = new Coords2D(column, row);
+                    Coords2D coords2D = new Coords2D(column+xOffset, row+yOffset);
                     parsedCells.put(coords2D, value);
                     column++;
                 }

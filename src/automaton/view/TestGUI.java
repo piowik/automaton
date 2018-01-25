@@ -84,6 +84,19 @@ public class TestGUI {
         jComboBox.setBounds(150, 0, 100, 40);
 
         planePanel.setBounds(0, 80, 540, 560);
+        planePanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if (currentGame instanceof GameOfLife) {
+                    int posX = e.getX() / ZOOM;
+                    int posY = e.getY() / ZOOM;
+                    Map<CellCoordinates, CellState> testStructure = GameOfLife.convert(MapReader.readMapFromFile("structure.txt", posX, posY));
+                    currentGame.insertStructure(testStructure);
+                    System.out.println(e.getX() + ":" + e.getY());
+                }
+            }
+        });
         addBookPanel.setBounds(0, 240, 450, 150);
         JButton nextStepButton = new JButton("Step");//creating instance of JButton
         nextStepButton.setBounds(0, 40, 100, 40);
@@ -230,7 +243,7 @@ public class TestGUI {
     private void startWireWorld(CellNeighborhood neighborhood) {
         UniformStateFactory uniformStateFactory = new UniformStateFactory(WireElectronState.VOID);
         currentGame = new WireWorld(neighborhood, uniformStateFactory, width, height);
-        Map<CellCoordinates, CellState> testStructure = WireWorld.convert(MapReader.readMapFromFile("xor.txt"));
+        Map<CellCoordinates, CellState> testStructure = WireWorld.convert(MapReader.readMapFromFile("xor.txt",10,10));
         currentGame.insertStructure(testStructure);
 
     }
@@ -238,7 +251,7 @@ public class TestGUI {
     private void startGameOfLife(CellNeighborhood neighborhood) {
         UniformStateFactory uniformStateFactory = new UniformStateFactory(DEAD);
         currentGame = new GameOfLife(neighborhood, uniformStateFactory, width, height, neighborsToNotDie, neighborsToStartLiving);
-        Map<CellCoordinates, CellState> testStructure = GameOfLife.convert(MapReader.readMapFromFile("test.txt"));
+        Map<CellCoordinates, CellState> testStructure = GameOfLife.convert(MapReader.readMapFromFile("gameoflife.txt",0,0));
         currentGame.insertStructure(testStructure);
     }
 
@@ -260,6 +273,7 @@ public class TestGUI {
 
 
     class GPanel extends JPanel {
+
         @Override
         public void paintComponent(Graphics g) {
             if (cellsMap.size() != 0) {
