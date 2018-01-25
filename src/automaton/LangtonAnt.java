@@ -21,8 +21,6 @@ public class LangtonAnt extends Automaton2Dim {
     }
 
     protected CellState nextCellState(Cell targetCell, Set<Cell> neighborsStates) {
-        CellState currentState = targetCell.state;
-
         LangtonCell antCell;
         AntState antstate;
         int antid;
@@ -36,10 +34,10 @@ public class LangtonAnt extends Automaton2Dim {
                 antstate = antCell.antState;
                 antid = antCell.antId;
                 antcoords = (Coords2D) c.coords;
-                if ((antstate == AntState.WEST && (targetcoords.x == antcoords.x - 1))
-                        || (antstate == AntState.EAST && (targetcoords.x - 1 == antcoords.x))
-                        || (antstate == AntState.NORTH && (targetcoords.y == antcoords.y + 1))
-                        || (antstate == AntState.SOUTH && (targetcoords.y + 1 == antcoords.y))) {
+                if ((antstate == AntState.WEST && (targetcoords.x == antcoords.x - 1) && (targetcoords.y == antcoords.y))
+                        || (antstate == AntState.EAST && (targetcoords.x - 1 == antcoords.x) && (targetcoords.y == antcoords.y))
+                        || (antstate == AntState.NORTH && (targetcoords.y == antcoords.y + 1) && (targetcoords.x == antcoords.x))
+                        || (antstate == AntState.SOUTH && (targetcoords.y + 1 == antcoords.y) && (targetcoords.x == antcoords.x))) {
                     if (targetCell.state == DEAD) {
                         switch (antstate) {
                             case EAST:
