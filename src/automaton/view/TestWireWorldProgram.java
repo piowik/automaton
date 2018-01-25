@@ -3,11 +3,15 @@ package automaton.view;
 import automaton.automaton.WireWorld;
 import automaton.coordinates.CellCoordinates;
 import automaton.coordinates.Coords2D;
+import automaton.factory.GeneralStateFactory;
 import automaton.factory.UniformStateFactory;
 import automaton.neighborhood.MoorNeighborhood;
 import automaton.state.CellState;
 import automaton.state.WireElectronState;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,16 +19,70 @@ public class TestWireWorldProgram {
     static int width = 4;
     static int height = 4;
 
-    public static void main(String[] argv) {
 
+
+    public static Map<CellCoordinates,Integer> ReadMapFromFile(String filename){
+        BufferedReader br = null;
+        FileReader fr = null;
+        Map<CellCoordinates,Integer> parsedCells=new HashMap<CellCoordinates, Integer>() {
+        };
+        try {
+
+            //br = new BufferedReader(new FileReader(FILENAME));
+            fr = new FileReader(filename);
+            br = new BufferedReader(fr);
+
+            String sCurrentLine;
+            int row=0;
+            int column=0;
+            Integer value;
+            while ((sCurrentLine = br.readLine()) != null) {
+                column=0;
+                for(int i=0;i<sCurrentLine.length();i++){
+                    value=Character.getNumericValue(sCurrentLine.charAt(i));
+                    Coords2D coords2D = new Coords2D(column,row);
+                    parsedCells.put(coords2D,value);
+                    column++;
+                }
+                row++;
+            }
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+        } finally {
+
+            try {
+
+                if (br != null)
+                    br.close();
+
+                if (fr != null)
+                    fr.close();
+
+            } catch (IOException ex) {
+
+                ex.printStackTrace();
+
+            }
+
+        }
+        return parsedCells;
+    }
+
+
+    public static void main(String[] argv) {
+        Map<CellCoordinates,Integer> mapFromFile = ReadMapFromFile("D:\\IntelliJ Projects\\src\\com\\company\\automaton\\src\\automaton\\view\\test.txt"); //TODO: dunno how path should work
         UniformStateFactory uniformStateFactory = new UniformStateFactory(WireElectronState.VOID);
+        GeneralStateFactory generalStateFactory = new GeneralStateFactory(WireWorld.convert(mapFromFile));
         MoorNeighborhood moorNeighborhood = new MoorNeighborhood(width, height, false, 1);
-        WireWorld newGame = new WireWorld(moorNeighborhood, uniformStateFactory, width, height);
+        WireWorld newGame = new WireWorld(moorNeighborhood, generalStateFactory, width, height);
         Map<CellCoordinates, CellState> cellsMap = newGame.getCells();
         System.out.println("Reading returned map (Size " + cellsMap.size() + ")");
         System.out.println("Iterating entrySet");
         drawMap(cellsMap);
-
+/*
         Map<CellCoordinates, CellState> testStructure = new HashMap<>();
 
 
@@ -58,7 +116,7 @@ public class TestWireWorldProgram {
         newGame.insertStructure(testStructure);
         cellsMap = newGame.getCells();
         System.out.println("Printing after inserting structure");
-        drawMap(cellsMap);
+        drawMap(cellsMap);*/
 
         for (int i = 0; i < 5; i++) {
             newGame = (WireWorld) newGame.nextState();

@@ -1,10 +1,13 @@
 package automaton.automaton;
 
 import automaton.cell.Cell;
+import automaton.coordinates.CellCoordinates;
 import automaton.factory.CellStateFactory;
 import automaton.neighborhood.CellNeighborhood;
 import automaton.state.CellState;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.IntStream;
 
@@ -24,6 +27,19 @@ public class GameOfLife extends Automaton2Dim {
             }
         }
         return false;
+    }
+
+    public static Map<CellCoordinates, CellState> convert(Map<CellCoordinates, Integer> mapFromFile)
+    {
+        Map<CellCoordinates,CellState> convertedMap = new HashMap<>();
+        for (Map.Entry<CellCoordinates, Integer> entry : mapFromFile.entrySet()) {
+            if(entry.getValue()==0)
+                convertedMap.put(entry.getKey(), DEAD);
+            else
+                convertedMap.put(entry.getKey(), ALIVE);
+        }
+
+        return convertedMap;
     }
     public static void main(String[] args) {
         int[] myArray = { 5, 2, 17, 13, 12, 19, 7, 3, 9, 15 };

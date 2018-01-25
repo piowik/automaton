@@ -8,7 +8,7 @@ import java.util.Map;
 public class GeneralStateFactory implements CellStateFactory {
     private Map<CellCoordinates, CellState> states;
 
-    GeneralStateFactory(Map<CellCoordinates, CellState> states) {
+    public GeneralStateFactory(Map<CellCoordinates, CellState> states) {
         this.states = states;
     }
 
