@@ -1,4 +1,4 @@
-package automaton;
+package automaton.state;
 
 public interface CellState {
 }

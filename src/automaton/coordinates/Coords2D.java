@@ -1,10 +1,10 @@
-package automaton;
+package automaton.coordinates;
 
 public class Coords2D implements CellCoordinates {
     public int x;
     public int y;
 
-    Coords2D(int x, int y) {
+    public Coords2D(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -18,9 +18,7 @@ public class Coords2D implements CellCoordinates {
         if (getClass() != obj.getClass())
             return false;
         Coords2D other = (Coords2D) obj;
-        if (other.x == x && other.y == y)
-            return true;
-        return false;
+        return other.x == x && other.y == y;
     }
 
     @Override

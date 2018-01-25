@@ -1,9 +1,14 @@
-package automaton;
+package automaton.automaton;
+
+import automaton.cell.Cell;
+import automaton.factory.CellStateFactory;
+import automaton.neighborhood.CellNeighborhood;
+import automaton.state.CellState;
 
 import java.util.Set;
 
-import static automaton.BinaryState.ALIVE;
-import static automaton.BinaryState.DEAD;
+import static automaton.state.BinaryState.ALIVE;
+import static automaton.state.BinaryState.DEAD;
 
 public class GameOfLife extends Automaton2Dim {
     private int width;
@@ -16,8 +21,7 @@ public class GameOfLife extends Automaton2Dim {
     }
 
     protected Automaton newInstance(CellStateFactory cellStateFactory, CellNeighborhood cellNeighborhood) {
-        GameOfLife newInstance = new GameOfLife(cellNeighborhood, cellStateFactory, width, height);
-        return newInstance;
+        return new GameOfLife(cellNeighborhood, cellStateFactory, width, height);
     }
 
     protected CellState nextCellState(Cell targetCell, Set<Cell> neighborsStates) {

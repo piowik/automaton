@@ -1,4 +1,4 @@
-package automaton;
+package automaton.coordinates;
 
 public interface CellCoordinates {
 }

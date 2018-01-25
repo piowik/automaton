@@ -1,8 +1,13 @@
-package automaton;
+package automaton.automaton;
+
+import automaton.cell.Cell;
+import automaton.factory.CellStateFactory;
+import automaton.neighborhood.CellNeighborhood;
+import automaton.state.CellState;
 
 import java.util.Set;
 
-import static automaton.WireElectronState.*;
+import static automaton.state.WireElectronState.*;
 
 public class WireWorld extends Automaton2Dim {
     private int width;
@@ -15,8 +20,7 @@ public class WireWorld extends Automaton2Dim {
     }
 
     protected Automaton newInstance(CellStateFactory cellStateFactory, CellNeighborhood cellNeighborhood) {
-        WireWorld newInstance = new WireWorld(cellNeighborhood, cellStateFactory, width, height);
-        return newInstance;
+        return new WireWorld(cellNeighborhood, cellStateFactory, width, height);
     }
 
     protected CellState nextCellState(Cell targetCell, Set<Cell> neighborsStates) {

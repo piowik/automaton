@@ -1,4 +1,7 @@
-package automaton;
+package automaton.neighborhood;
+
+import automaton.coordinates.CellCoordinates;
+import automaton.coordinates.Coords2D;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,7 +12,7 @@ public class MoorNeighborhood implements CellNeighborhood {
     private boolean wrap;
     private int r;
 
-    MoorNeighborhood(int width, int height, boolean wrap, int r) {
+    public MoorNeighborhood(int width, int height, boolean wrap, int r) {
         this.width = width;
         this.height = height;
         this.wrap = wrap;
@@ -30,15 +33,5 @@ public class MoorNeighborhood implements CellNeighborhood {
         }
         //TODO: wrap
         return neighbors;
-    }
-
-    public static void main(String[] argv) {
-        CellCoordinates test2D = new Coords2D(3, 3);
-        MoorNeighborhood moorNeighborhood = new MoorNeighborhood(100, 100, false, 2);
-        Set<CellCoordinates> neighborsTest = moorNeighborhood.cellNeighborhood(test2D);
-        for (CellCoordinates coord : neighborsTest) {
-            Coords2D coords = (Coords2D) coord;
-            System.out.println("[" + coords.x + ";" + coords.y + "]");
-        }
     }
 }
