@@ -21,7 +21,9 @@ public class TestGameOfLifeProgram {
 
         UniformStateFactory uniformStateFactory = new UniformStateFactory(DEAD);
         MoorNeighborhood moorNeighborhood = new MoorNeighborhood(width, height, false, 1);
-        GameOfLife newGame = new GameOfLife(moorNeighborhood, uniformStateFactory, width, height);
+        int[] neighborsToNotDie = {2};
+        int[] neighborsToStartLiving = {2,3};
+        GameOfLife newGame = new GameOfLife(moorNeighborhood, uniformStateFactory, width, height,neighborsToNotDie,neighborsToStartLiving);
         Map<CellCoordinates, CellState> cellsMap = newGame.getCells();
         System.out.println("Reading returned map (Size " + cellsMap.size() + ")");
         System.out.println("Iterating entrySet");
