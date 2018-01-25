@@ -33,8 +33,10 @@ public class LangtonAnt extends Automaton2Dim {
         int antid;
         Coords2D antcoords;
         Coords2D targetcoords = (Coords2D) targetCell.coords;
-        boolean isAnt = false;
-
+        if (targetCell.state instanceof LangtonCell) {
+            LangtonCell langtonCell = (LangtonCell) targetCell.state;
+            return langtonCell.cellState;
+        }
         for (Cell c : neighborsStates) {
             if (c.state instanceof LangtonCell) {
                 antCell = (LangtonCell) c.state;
