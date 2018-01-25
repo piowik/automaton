@@ -20,7 +20,7 @@ public class GameOfLife extends Automaton2Dim {
     private int[] neighborsToNotDie;
     private int[] neighborsToStartLiving;
 
-    public static boolean contains(int[] arr, int item) {
+    private static boolean contains(int[] arr, int item) {
         for (int n : arr) {
             if (item == n) {
                 return true;
@@ -40,11 +40,6 @@ public class GameOfLife extends Automaton2Dim {
         }
 
         return convertedMap;
-    }
-    public static void main(String[] args) {
-        int[] myArray = { 5, 2, 17, 13, 12, 19, 7, 3, 9, 15 };
-        System.out.println(contains(myArray, 13));
-        System.out.println(contains(myArray, 25));
     }
 
     public GameOfLife(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory, int width, int height, int[] neighborsToNotDie, int[] neighborsToStartLiving) {
