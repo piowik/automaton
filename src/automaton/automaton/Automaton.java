@@ -1,4 +1,10 @@
-package automaton;
+package automaton.automaton;
+
+import automaton.cell.Cell;
+import automaton.coordinates.CellCoordinates;
+import automaton.factory.CellStateFactory;
+import automaton.neighborhood.CellNeighborhood;
+import automaton.state.CellState;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -21,7 +27,7 @@ public abstract class Automaton {
         while (iterator.hasNext()) {
             CellCoordinates cellCoords = iterator.next();
             CellState state = stateFactory.initialState(cellCoords);
-            cells.put(cellCoords,state);
+            cells.put(cellCoords, state);
         }
     }
 
@@ -46,14 +52,13 @@ public abstract class Automaton {
     }
 
     public void insertStructure(Map<? extends CellCoordinates, ? extends CellState> structure) {
-        for (Map.Entry<? extends CellCoordinates, ? extends CellState> entry : structure.entrySet())
-        {
+        for (Map.Entry<? extends CellCoordinates, ? extends CellState> entry : structure.entrySet()) {
             cells.put(entry.getKey(), entry.getValue());
         }
     }
 
 
-    public CellIterator cellIterator() {
+    private CellIterator cellIterator() {
         return new CellIterator();
     }
 
@@ -78,11 +83,11 @@ public abstract class Automaton {
     class CellIterator {
         private CellCoordinates currentCoords = initialCoordinates();
 
-        public boolean hasNext() {
+        boolean hasNext() {
             return hasNextCoordinates(currentCoords);
         }
 
-        public CellCoordinates next() {
+        CellCoordinates next() {
             currentCoords = nextCoordinates(currentCoords);
             return currentCoords;
         }

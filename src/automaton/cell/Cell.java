@@ -1,4 +1,7 @@
-package automaton;
+package automaton.cell;
+
+import automaton.coordinates.CellCoordinates;
+import automaton.state.CellState;
 
 public class Cell {
     public CellState state;

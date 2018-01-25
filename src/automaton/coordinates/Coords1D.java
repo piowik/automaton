@@ -1,9 +1,9 @@
-package automaton;
+package automaton.coordinates;
 
 public class Coords1D implements CellCoordinates {
     public int x;
 
-    Coords1D(int x) {
+    public Coords1D(int x) {
         this.x = x;
     }
 
@@ -16,9 +16,7 @@ public class Coords1D implements CellCoordinates {
         if (getClass() != obj.getClass())
             return false;
         Coords1D other = (Coords1D) obj;
-        if (other.x == x)
-            return true;
-        return false;
+        return other.x == x;
     }
 
     @Override
