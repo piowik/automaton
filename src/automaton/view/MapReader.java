@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class MapReader {
     public static Map<CellCoordinates, Integer> readMapFromFile(String name, int xOffset, int yOffset) {
-        String path = "F:\\IntelliJ\\workspace\\java\\Automaton\\src\\automaton\\view\\" + name;
+        String path = "D:\\IntelliJ Projects\\src\\com\\company\\automaton\\src\\automaton\\view\\" + name;
         BufferedReader br = null;
         FileReader fr = null;
         Map<CellCoordinates, Integer> parsedCells = new HashMap<CellCoordinates, Integer>() {
