@@ -58,10 +58,10 @@ public class TestGameOfLifeProgram {
     }
 
     private static void drawMap(Map<CellCoordinates, CellState> cellsMap) {
-        for (int i = 0; i < width; i++) {
+        for (int i = 0; i < height; i++) {
             System.out.print("[");
             for (int j = 0; j < width; j++) {
-                String p = cellsMap.get(new Coords2D(i,j)).toString().substring(0,1);
+                String p = cellsMap.get(new Coords2D(j,i)).toString().substring(0,1);
                 System.out.print(" " + p + " ");
             }
             System.out.println("]");
