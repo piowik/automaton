@@ -35,9 +35,11 @@ public class TestGUI {
     private JCheckBox wrapCheckbox;
     private Automaton currentGame;
     private Map<CellCoordinates, CellState> cellsMap = new HashMap<>();
-    private JSpinner rSpinner;
+    private JSpinner rSpinner, tickSpinner;
     private JComboBox jComboBox = new JComboBox();
     private JComboBox neighborhoodComboBox = new JComboBox();
+    private JButton autoMode;
+    private boolean isAuto = false;
 
     private int selectedGame = 0;
     private int selectedNeighborhood = 0;
@@ -122,13 +124,20 @@ public class TestGUI {
 
             }
         });
-        JButton autoMode = new JButton("Auto 100");
+        autoMode = new JButton("Auto 100");
         autoMode.setBounds(300, 40, 100, 40);
         autoMode.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                if (!isAuto) {
+                    isAuto = true;
                     (new Automate()).execute();
+                    autoMode.setText("Stop");
+                }
+                else {
+                    isAuto = false;
+                    autoMode.setText("Auto 100");
+                }
 
             }
         });
@@ -140,9 +149,10 @@ public class TestGUI {
         wrapCheckbox.setBounds(250, 0, 100, 40);
         JLabel rLabel = new JLabel("R:");
         rLabel.setBounds(350, 0, 30, 40);
-        SpinnerModel model = new SpinnerNumberModel(1, 1, 20, 1);
-        rSpinner = new JSpinner(model);
+        SpinnerModel rModel = new SpinnerNumberModel(1, 1, 20, 1);
+        rSpinner = new JSpinner(rModel);
         rSpinner.setBounds(380, 0, 70, 40);
+
         JButton startGameButton = new JButton("Start");//creating instance of JButton
         startGameButton.setBounds(450, 0, 80, 40);
         startGameButton.addActionListener(new ActionListener() {
@@ -188,17 +198,24 @@ public class TestGUI {
 
             }
         });
+        SpinnerModel tickModel = new SpinnerNumberModel(300, 50, 1000, 1);
+        tickSpinner = new JSpinner(tickModel);
+        tickSpinner.setBounds(400, 40, 70, 40);
 
+
+        // 1st row
         mainFrame.add(neighborhoodComboBox);
-        mainFrame.add(autoMode);
         mainFrame.add(jComboBox);
         mainFrame.add(wrapCheckbox);
         mainFrame.add(rLabel);
         mainFrame.add(rSpinner);
         mainFrame.add(startGameButton);
+        // 2nd row
         mainFrame.add(nextStepButton);
         mainFrame.add(next10Steps);
         mainFrame.add(next1000Steps);
+        mainFrame.add(autoMode);
+        mainFrame.add(tickSpinner);
         mainFrame.add(planePanel);
 
         WindowListener wndCloser = new WindowAdapter() {
@@ -285,10 +302,12 @@ public class TestGUI {
                 mainFrame.validate();
                 mainFrame.repaint();
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep((int)tickSpinner.getValue());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                if (!isAuto)
+                    break;
             }
             return "done";
         }
