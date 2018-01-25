@@ -1,4 +1,9 @@
-package automaton;
+package automaton.automaton;
+
+import automaton.coordinates.CellCoordinates;
+import automaton.coordinates.Coords1D;
+import automaton.factory.CellStateFactory;
+import automaton.neighborhood.CellNeighborhood;
 
 public abstract class Automaton1Dim extends Automaton {
     private int size;
