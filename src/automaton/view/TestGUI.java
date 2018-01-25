@@ -30,8 +30,7 @@ public class TestGUI {
     private int[] neighborsToStartLiving = {3};
 
     private JFrame mainFrame;
-    private GPanel planePanel = new GPanel();// = new JPanel(new BorderLayout());
-    private JPanel addBookPanel = new JPanel(new GridLayout(5, 2));
+    private GPanel planePanel = new GPanel();
     private JCheckBox wrapCheckbox;
     private Automaton currentGame;
     private Map<CellCoordinates, CellState> cellsMap = new HashMap<>();
@@ -51,7 +50,7 @@ public class TestGUI {
         new TestGUI();
     }
 
-    TestGUI() {
+    private TestGUI() {
         prepareGUI();
     }
 
@@ -67,18 +66,11 @@ public class TestGUI {
         jComboBox.addItem("Langton Ant");
         neighborhoodComboBox.addItem("Moore Neighborhood");
         neighborhoodComboBox.addItem("VonNeuman Neighborhood");
-        jComboBox.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                selectedGame = ((JComboBox) e.getSource()).getSelectedIndex();
-                System.out.println(selectedGame);
-            }
+        jComboBox.addActionListener(e -> {
+            selectedGame = ((JComboBox) e.getSource()).getSelectedIndex();
+            System.out.println(selectedGame);
         });
-        neighborhoodComboBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                selectedNeighborhood = ((JComboBox) e.getSource()).getSelectedIndex();
-            }
-        });
+        neighborhoodComboBox.addActionListener(e -> selectedNeighborhood = ((JComboBox) e.getSource()).getSelectedIndex());
 
         neighborhoodComboBox.setBounds(0, 0, 150, 40);
         jComboBox.setBounds(150, 0, 100, 40);
@@ -97,62 +89,49 @@ public class TestGUI {
                 }
             }
         });
-        addBookPanel.setBounds(0, 240, 450, 150);
         JButton nextStepButton = new JButton("Step");//creating instance of JButton
         nextStepButton.setBounds(0, 40, 100, 40);
-        nextStepButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                currentGame = currentGame.nextState();
-                cellsMap = currentGame.getCells();
-                mainFrame.validate();
-                mainFrame.repaint();
-            }
+        nextStepButton.addActionListener(e -> {
+            currentGame = currentGame.nextState();
+            cellsMap = currentGame.getCells();
+            mainFrame.validate();
+            mainFrame.repaint();
         });
         JButton next10Steps = new JButton("10 steps");//creating instance of JButton
         next10Steps.setBounds(100, 40, 100, 40);
-        next10Steps.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                for (int i = 0; i <= 10; i++)
-                    currentGame = currentGame.nextState();
+        next10Steps.addActionListener(e -> {
+            for (int i = 0; i <= 10; i++)
+                currentGame = currentGame.nextState();
 
-                cellsMap = currentGame.getCells();
-                mainFrame.validate();
-                mainFrame.repaint();
+            cellsMap = currentGame.getCells();
+            mainFrame.validate();
+            mainFrame.repaint();
 
-            }
         });
         JButton next1000Steps = new JButton("1000 steps");//creating instance of JButton
         next1000Steps.setBounds(200, 40, 100, 40);
-        next1000Steps.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                for (int i = 0; i <= 1000; i++)
-                    currentGame = currentGame.nextState();
+        next1000Steps.addActionListener(e -> {
+            for (int i = 0; i <= 1000; i++)
+                currentGame = currentGame.nextState();
 
-                cellsMap = currentGame.getCells();
-                mainFrame.validate();
-                mainFrame.repaint();
+            cellsMap = currentGame.getCells();
+            mainFrame.validate();
+            mainFrame.repaint();
 
-            }
         });
         autoMode = new JButton("Auto 100");
         autoMode.setBounds(300, 40, 100, 40);
-        autoMode.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (!isAuto) {
-                    isAuto = true;
-                    (new Automate()).execute();
-                    autoMode.setText("Stop");
-                }
-                else {
-                    isAuto = false;
-                    autoMode.setText("Auto 100");
-                }
-
+        autoMode.addActionListener(e -> {
+            if (!isAuto) {
+                isAuto = true;
+                (new Automate()).execute();
+                autoMode.setText("Stop");
             }
+            else {
+                isAuto = false;
+                autoMode.setText("Auto 100");
+            }
+
         });
         autoMode.setEnabled(false);
         nextStepButton.setEnabled(false);
@@ -168,48 +147,45 @@ public class TestGUI {
 
         JButton startGameButton = new JButton("Start");//creating instance of JButton
         startGameButton.setBounds(450, 0, 80, 40);
-        startGameButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                CellNeighborhood neighborhood;
-                int r = (int) rSpinner.getValue();
-                if (selectedNeighborhood == 0)
-                    neighborhood = new MoorNeighborhood(width, height, wrapCheckbox.isSelected(), r);
-                else // prevent false "might have not been initialized" warning
-                    neighborhood = new VonNeumanNeighborhood(width, height, wrapCheckbox.isSelected(), r);
-                switch (selectedGame) {
-                    case 0:
-                        width = 50;
-                        height = 50;
-                        ZOOM = 10;
-                        startGameOfLife(neighborhood);
-                        break;
+        startGameButton.addActionListener(e -> {
+            CellNeighborhood neighborhood;
+            int r = (int) rSpinner.getValue();
+            if (selectedNeighborhood == 0)
+                neighborhood = new MoorNeighborhood(width, height, wrapCheckbox.isSelected(), r);
+            else // prevent false "might have not been initialized" warning
+                neighborhood = new VonNeumanNeighborhood(width, height, wrapCheckbox.isSelected(), r);
+            switch (selectedGame) {
+                case 0:
+                    width = 50;
+                    height = 50;
+                    ZOOM = 10;
+                    startGameOfLife(neighborhood);
+                    break;
 
-                    case 1:
-                        width = 50;
-                        height = 50;
-                        ZOOM = 10;
-                        startWireWorld(neighborhood);
-                        break;
+                case 1:
+                    width = 50;
+                    height = 50;
+                    ZOOM = 10;
+                    startWireWorld(neighborhood);
+                    break;
 
-                    case 2:
-                        width = 100;
-                        height = 100;
-                        ZOOM = 5;
-                        startLangtonAnt(neighborhood);
-                        break;
-
-                }
-                cellsMap = currentGame.getCells();
-                mainFrame.validate();
-                mainFrame.repaint();
-
-                nextStepButton.setEnabled(true);
-                next10Steps.setEnabled(true);
-                next1000Steps.setEnabled(true);
-                autoMode.setEnabled(true);
+                case 2:
+                    width = 100;
+                    height = 100;
+                    ZOOM = 5;
+                    startLangtonAnt(neighborhood);
+                    break;
 
             }
+            cellsMap = currentGame.getCells();
+            mainFrame.validate();
+            mainFrame.repaint();
+
+            nextStepButton.setEnabled(true);
+            next10Steps.setEnabled(true);
+            next1000Steps.setEnabled(true);
+            autoMode.setEnabled(true);
+
         });
         SpinnerModel tickModel = new SpinnerNumberModel(300, 50, 1000, 1);
         tickSpinner = new JSpinner(tickModel);
