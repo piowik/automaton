@@ -22,7 +22,6 @@ public abstract class Automaton {
     }
 
     protected void initializeMap() {
-        // map initialization
         CellIterator iterator = cellIterator();
         while (iterator.hasNext()) {
             CellCoordinates cellCoords = iterator.next();
@@ -36,7 +35,6 @@ public abstract class Automaton {
     }
 
     public Automaton nextState() {
-        // TODO: check
         Automaton newAuto = newInstance(stateFactory, neighborsStrategy);
         CellIterator iterator = newAuto.cellIterator();
         while (iterator.hasNext()) {
@@ -46,7 +44,6 @@ public abstract class Automaton {
             Set<Cell> mappedNeighbors = mapCoordinates(neighbors);
             CellState newState = nextCellState(c, mappedNeighbors);
             iterator.setState(newState);
-//            iterator.next();
         }
         return newAuto;
     }
@@ -57,11 +54,9 @@ public abstract class Automaton {
         }
     }
 
-
     private CellIterator cellIterator() {
         return new CellIterator();
     }
-
 
     protected abstract Automaton newInstance(CellStateFactory cellStateFactory, CellNeighborhood neighborsStrategy);
 
@@ -95,6 +90,5 @@ public abstract class Automaton {
         public void setState(CellState newState) {
             cells.put(currentCoords, newState);
         }
-
     }
 }
