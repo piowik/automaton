@@ -25,7 +25,7 @@ import java.util.Map;
 import static automaton.state.BinaryState.ALIVE;
 import static automaton.state.BinaryState.DEAD;
 
-public class TestGUI {
+public class GUI2D {
     private int[] neighborsToNotDie={2,3};
     private int[] neighborsToStartLiving={3};
 
@@ -53,10 +53,10 @@ public class TestGUI {
     private int ZOOM;
 
     public static void main(String[] args) {
-        new TestGUI();
+        new GUI2D();
     }
 
-    private TestGUI() {
+    private GUI2D() {
         prepareGUI();
     }
 
