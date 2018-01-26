@@ -37,7 +37,7 @@ public class TestGUI {
     private Automaton currentGame;
     private Map<CellCoordinates, CellState> cellsMap = new HashMap<>();
     private JSpinner rSpinner, tickSpinner;
-    private JComboBox<String> jComboBox = new JComboBox<>();
+    private JComboBox<String> gameComboBox = new JComboBox<>();
     private JComboBox<String> neighborhoodComboBox = new JComboBox<>();
     private JComboBox<String> insertComboBox = new JComboBox<>();
     private JComboBox<String> gameOfLifeModeComboBox = new JComboBox<>();
@@ -46,11 +46,10 @@ public class TestGUI {
 
     private int selectedGame = 0;
     private int selectedNeighborhood = 0;
-    private String selectedStructureToInsert="Działo.txt";
     private int width;
     private int height;
     private int window_width=700;
-    private int window_height=640;
+    private int window_height=800;
     private int ZOOM;
 
     public static void main(String[] args) {
@@ -68,28 +67,34 @@ public class TestGUI {
         mainFrame.setSize(window_width, window_height);
         mainFrame.setLayout(null);//using no layout managers
 
-        jComboBox.addItem("Game of Life");
-        jComboBox.addItem("Wireworld");
-        jComboBox.addItem("Langton Ant");
+        gameComboBox.addItem("Game of Life");
+        gameComboBox.addItem("Wireworld");
+        gameComboBox.addItem("Langton Ant");
         neighborhoodComboBox.addItem("Moore Neighborhood");
         neighborhoodComboBox.addItem("VonNeuman Neighborhood");
-        insertComboBox.addItem("Działo");
-        insertComboBox.addItem("Latawiec");
-        insertComboBox.addItem("Itp");
-        insertComboBox.addItem("Iksde");
-        insertComboBox.addItem("Nienawidze informatyki");
-        insertComboBox.setBounds(500,0,70,40);
-        jComboBox.addActionListener(e -> {
+        initializeComboBox(0);
+        insertComboBox.setBounds(600,40,80,40);
+        gameComboBox.addActionListener(e -> {
             selectedGame = ((JComboBox) e.getSource()).getSelectedIndex();
+            initializeComboBox(selectedGame);
+            if(selectedGame == 0) {
+                cellsToBecomeAliveTextField.setEnabled(true);
+                cellsToLiveTextField.setEnabled(true);
+            }
+            else {
+                cellsToBecomeAliveTextField.setEnabled(false);
+                cellsToLiveTextField.setEnabled(false);
+            }
+            if(selectedGame == 2)
+                neighborhoodComboBox.setEnabled(false);
+            else
+                neighborhoodComboBox.setEnabled(true);
             System.out.println(selectedGame);
         });
         neighborhoodComboBox.addActionListener(e -> selectedNeighborhood = ((JComboBox) e.getSource()).getSelectedIndex());
 
-        insertComboBox.addActionListener(
-                e ->  selectedStructureToInsert=
-                        (String)((JComboBox) e.getSource()).getSelectedItem()+".txt");
-        neighborhoodComboBox.setBounds(0, 0, 100, 40);
-        jComboBox.setBounds(100, 0, 90, 40);
+        neighborhoodComboBox.setBounds(0, 0, 150, 40);
+        gameComboBox.setBounds(150, 0, 150, 40);
 
 
 
@@ -100,20 +105,30 @@ public class TestGUI {
                 super.mousePressed(e);
                 int posX = e.getX() / ZOOM;
                 int posY = e.getY() / ZOOM;
+                if (currentGame instanceof LangtonAnt)
+                    return;
+                String selectedStructureToInsert = insertComboBox.getSelectedItem() +".txt";
+
+                System.out.println(selectedStructureToInsert);
+                Map<CellCoordinates, CellState> structureToInsert = new HashMap<>();
                 if (currentGame instanceof GameOfLife) {
-                    Map<CellCoordinates, CellState> testStructure = GameOfLife.convert(MapReader.readMapFromFile(selectedStructureToInsert, posX, posY));
-                    currentGame.insertStructure(testStructure);
-                    mainFrame.validate();
-                    mainFrame.repaint();
+                    if (selectedStructureToInsert.contains("Cell"))
+                        structureToInsert.put(new Coords2D(posX,posY),BinaryState.ALIVE);
+                    else
+                        structureToInsert = GameOfLife.convert(MapReader.readMapFromFile(selectedStructureToInsert, posX, posY));
+                    currentGame.insertStructure(structureToInsert);
                 }
                 else if (currentGame instanceof WireWorld) {
-                    Map<CellCoordinates, CellState> testStructure = new HashMap<>();
-                    testStructure.put(new Coords2D(posX,posY),WireElectronState.WIRE);
-                    currentGame.insertStructure(testStructure);
-                    mainFrame.validate();
-                    mainFrame.repaint();
+                    if (selectedStructureToInsert.contains("Wire"))
+                        structureToInsert.put(new Coords2D(posX,posY),WireElectronState.WIRE);
+                    else if (selectedStructureToInsert.contains("Electron"))
+                        structureToInsert.put(new Coords2D(posX,posY),WireElectronState.ELECTRON_HEAD);
+                    else
+                        structureToInsert = WireWorld.convert(MapReader.readMapFromFile(selectedStructureToInsert, posX, posY));
+                    currentGame.insertStructure(structureToInsert);
                 }
-                System.out.println("Click");
+                mainFrame.validate();
+                mainFrame.repaint();
             }
         });
         JButton nextStepButton = new JButton("Step");//creating instance of JButton
@@ -147,7 +162,7 @@ public class TestGUI {
             mainFrame.repaint();
 
         });
-        autoMode = new JButton("Auto 100");
+        autoMode = new JButton("Auto");
         autoMode.setBounds(300, 40, 100, 40);
         autoMode.addActionListener(e -> {
             if (!isAuto) {
@@ -157,7 +172,7 @@ public class TestGUI {
             }
             else {
                 isAuto = false;
-                autoMode.setText("Auto 100");
+                autoMode.setText("Auto");
             }
 
         });
@@ -166,14 +181,18 @@ public class TestGUI {
         next10Steps.setEnabled(false);
         next1000Steps.setEnabled(false);
         wrapCheckbox = new JCheckBox("Wrap");
-        wrapCheckbox.setBounds(270, 0, 80, 40);
+        wrapCheckbox.setBounds(450, 0, 80, 40);
         JLabel rLabel = new JLabel("R:");
-        rLabel.setBounds(350, 0, 30, 40);
+        rLabel.setBounds(530, 0, 30, 40);
         SpinnerModel rModel = new SpinnerNumberModel(1, 1, 20, 1);
         rSpinner = new JSpinner(rModel);
-        rSpinner.setBounds(380, 0, 70, 40);
-        cellsToLiveTextField.setBounds(210,0,50,20);
-        cellsToBecomeAliveTextField.setBounds(210,20,50,20);
+        rSpinner.setBounds(560, 0, 40, 40);
+        JLabel cellsToLiveLabel = new JLabel("To live");
+        cellsToLiveLabel.setBounds(300,0,100,20);
+        JLabel cellsToBecomeAliveLabel = new JLabel("To be born");
+        cellsToBecomeAliveLabel.setBounds(300,20,100,20);
+        cellsToLiveTextField.setBounds(400,0,50,20);
+        cellsToBecomeAliveTextField.setBounds(400,20,50,20);
         JButton startGameButton = new JButton("Start");//creating instance of JButton
         startGameButton.setBounds(600, 0, 80, 40);
         startGameButton.addActionListener(e -> {
@@ -201,23 +220,23 @@ public class TestGUI {
                 neighborhood = new VonNeumanNeighborhood(width, height, wrapCheckbox.isSelected(), r);
             switch (selectedGame) {
                 case 0:
-                    width = 50;
-                    height = 50;
-                    ZOOM = window_height/height;
+                    width = 95;
+                    height = 95;
+                    ZOOM = 7;
                     startGameOfLife(neighborhood);
                     break;
 
                 case 1:
-                    width = 50;
-                    height = 50;
-                    ZOOM = window_height/height;
+                    width = 95;
+                    height = 95;
+                    ZOOM = 7;
                     startWireWorld(neighborhood);
                     break;
 
                 case 2:
-                    width = 100;
-                    height = 100;
-                    ZOOM = window_height/height;
+                    width = 73;
+                    height = 73;
+                    ZOOM = 9;
                     startLangtonAnt(neighborhood);
                     break;
 
@@ -233,25 +252,31 @@ public class TestGUI {
 
         });
         SpinnerModel tickModel = new SpinnerNumberModel(5, 1, 50, 1);
+        JLabel tickSpinnerLabel = new JLabel("Ticks per second");
+        tickSpinnerLabel.setBounds(400,40,100,40);
         tickSpinner = new JSpinner(tickModel);
-        tickSpinner.setBounds(400, 40, 70, 40);
+        tickSpinner.setBounds(500, 40, 70, 40);
+
 
 
         // 1st row
         mainFrame.add(neighborhoodComboBox);
-        mainFrame.add(jComboBox);
+        mainFrame.add(gameComboBox);
+        mainFrame.add(cellsToBecomeAliveLabel);
+        mainFrame.add(cellsToLiveLabel);
+        mainFrame.add(cellsToBecomeAliveTextField);
+        mainFrame.add(cellsToLiveTextField);
         mainFrame.add(insertComboBox);
         mainFrame.add(wrapCheckbox);
         mainFrame.add(rLabel);
         mainFrame.add(rSpinner);
-        mainFrame.add(cellsToBecomeAliveTextField);
-        mainFrame.add(cellsToLiveTextField);
         mainFrame.add(startGameButton);
         // 2nd row
         mainFrame.add(nextStepButton);
         mainFrame.add(next10Steps);
         mainFrame.add(next1000Steps);
         mainFrame.add(autoMode);
+        mainFrame.add(tickSpinnerLabel);
         mainFrame.add(tickSpinner);
         mainFrame.add(planePanel);
 
@@ -267,16 +292,11 @@ public class TestGUI {
     private void startWireWorld(CellNeighborhood neighborhood) {
         UniformStateFactory uniformStateFactory = new UniformStateFactory(WireElectronState.VOID);
         currentGame = new WireWorld(neighborhood, uniformStateFactory, width, height);
-        Map<CellCoordinates, CellState> testStructure = WireWorld.convert(MapReader.readMapFromFile("xor.txt",10,10));
-        currentGame.insertStructure(testStructure);
-
     }
 
     private void startGameOfLife(CellNeighborhood neighborhood) {
         UniformStateFactory uniformStateFactory = new UniformStateFactory(DEAD);
         currentGame = new GameOfLife(neighborhood, uniformStateFactory, width, height, neighborsToNotDie, neighborsToStartLiving);
-        Map<CellCoordinates, CellState> testStructure = GameOfLife.convert(MapReader.readMapFromFile("gameoflife.txt",0,0));
-        currentGame.insertStructure(testStructure);
     }
 
     private void startLangtonAnt(CellNeighborhood neighborhood) {
@@ -334,7 +354,7 @@ public class TestGUI {
     class Automate extends SwingWorker<String, Object> {
         @Override
         public String doInBackground() {
-            for(int i = 0; i <= 100; i++){
+            while(isAuto){
                 currentGame = currentGame.nextState();
                 cellsMap = currentGame.getCells();
                 mainFrame.validate();
@@ -344,8 +364,6 @@ public class TestGUI {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if (!isAuto)
-                    break;
             }
             return "done";
         }
@@ -357,6 +375,28 @@ public class TestGUI {
                 mainFrame.repaint();
             } catch (Exception ignore) {
             }
+        }
+    }
+
+    private void initializeComboBox(int gameId) {
+        insertComboBox.removeAllItems();
+        if (gameId == 2) {
+            insertComboBox.setEnabled(false);
+            return;
+        }
+        insertComboBox.setEnabled(true);
+        switch(gameId) {
+            case 0:
+                insertComboBox.addItem("Cell");
+                insertComboBox.addItem("Blinker");
+                insertComboBox.addItem("Glider");
+                insertComboBox.addItem("Gun");
+                insertComboBox.addItem("Engine");
+                break;
+            case 1:
+                insertComboBox.addItem("Wire");
+                insertComboBox.addItem("Electron head");
+                insertComboBox.addItem("XOR");
         }
     }
 
