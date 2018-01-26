@@ -37,17 +37,16 @@ public class OneDimAutomaton extends Automaton1Dim {
         Coords1D myCoords = (Coords1D) targetCell.coords;
         for (Cell c : neighborsStates) {
             Coords1D neighborCoords = (Coords1D) c.coords;
-            if (neighborCoords.x == myCoords.x && c.state == ALIVE)
-                neighborsValue = neighborsValue + 2;
             if (neighborCoords.x - 1 == myCoords.x && c.state == ALIVE)
-                neighborsValue = neighborsValue + 4;
-            if (neighborCoords.x + 1 == myCoords.x && c.state == ALIVE)
-                neighborsValue = neighborsValue + 1;
+                neighborsValue += 1;
+            else if (neighborCoords.x == myCoords.x && c.state == ALIVE)
+                neighborsValue += 2;
+            else if (neighborCoords.x + 1 == myCoords.x && c.state == ALIVE)
+                neighborsValue += 4;
         }
-        int myValue = binaryRule[neighborsValue];
+        int myValue = binaryRule[7-neighborsValue];
         if (myValue == 1)
             return ALIVE;
-        else
-            return DEAD;
+        return DEAD;
     }
 }
