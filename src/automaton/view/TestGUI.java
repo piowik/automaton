@@ -151,10 +151,10 @@ public class TestGUI {
             mainFrame.repaint();
 
         });
-        JButton next1000Steps = new JButton("1000 steps");//creating instance of JButton
+        JButton next1000Steps = new JButton("5000 steps");//creating instance of JButton
         next1000Steps.setBounds(200, 40, 100, 40);
         next1000Steps.addActionListener(e -> {
-            for (int i = 0; i <= 1000; i++)
+            for (int i = 0; i <= 5000; i++)
                 currentGame = currentGame.nextState();
 
             cellsMap = currentGame.getCells();
@@ -227,9 +227,9 @@ public class TestGUI {
                     break;
 
                 case 1:
-                    width = 95;
-                    height = 95;
-                    ZOOM = 7;
+                    width = 73;
+                    height = 73;
+                    ZOOM = 9;
                     startWireWorld(neighborhood);
                     break;
 
