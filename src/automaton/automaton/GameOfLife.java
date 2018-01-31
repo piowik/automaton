@@ -12,13 +12,21 @@ import java.util.Set;
 
 import static automaton.state.BinaryState.ALIVE;
 import static automaton.state.BinaryState.DEAD;
-
+/**
+ * GameOfLife class that implements Automaton2Dim. Contains wireworld game rules.
+ */
 public class GameOfLife extends Automaton2Dim {
     private final int width;
     private final int height;
     private final int[] neighborsToNotDie;
     private final int[] neighborsToStartLiving;
 
+    /**
+     * Helping method to find int in array
+     * @param arr int array
+     * @param item int that is being searched for
+     * @return boolean
+     */
     private static boolean contains(int[] arr, int item) {
         for (int n : arr) {
             if (item == n) {
@@ -27,6 +35,12 @@ public class GameOfLife extends Automaton2Dim {
         }
         return false;
     }
+
+    /**
+     * Helping method that converts integers in map from file to cell states
+     * @param mapFromFile int array
+     * @return map with key of {@link automaton.coordinates.Coords2D} and value {@link automaton.state.BinaryState}
+     */
 
     public static Map<CellCoordinates, CellState> convert(Map<CellCoordinates, Integer> mapFromFile)
     {
@@ -41,6 +55,14 @@ public class GameOfLife extends Automaton2Dim {
         return convertedMap;
     }
 
+
+    /**
+     * Constructor for GameOfLife class.
+     * @param neighborsStrategy strategy used to find neighbors
+     * @param stateFactory State Factory used in generating map
+     * @param width automaton width
+     * @param height automaton heighth
+     */
     public GameOfLife(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory, int width, int height, int[] neighborsToNotDie, int[] neighborsToStartLiving) {
         super(neighborsStrategy, stateFactory, width, height);
         this.width = width;
@@ -49,10 +71,22 @@ public class GameOfLife extends Automaton2Dim {
         this.neighborsToStartLiving=neighborsToStartLiving;
     }
 
+    /**
+     * Method returning new instance of automaton class based on the current class.
+     * @param cellStateFactory state factory used to generate map
+     * @param cellNeighborhood neighborhood strategy used in the game
+     * @return {@link automaton.automaton.Automaton}
+     */
     protected Automaton newInstance(CellStateFactory cellStateFactory, CellNeighborhood cellNeighborhood) {
         return new GameOfLife(cellNeighborhood, cellStateFactory, width, height, neighborsToNotDie, neighborsToStartLiving);
     }
 
+    /**
+     * Method returning next cell's state based on it's neighbors' states
+     * @param targetCell cell's coordinates
+     * @param neighborsStates cell's coordinates
+     * @return {@link automaton.state.BinaryState}
+     */
     protected CellState nextCellState(Cell targetCell, Set<Cell> neighborsStates) {
         CellState currentState = targetCell.state;
         int neighborsAlive = 0;

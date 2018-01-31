@@ -12,21 +12,44 @@ import java.util.Set;
 
 import static automaton.state.BinaryState.ALIVE;
 import static automaton.state.BinaryState.DEAD;
-
+/**
+ * LangtonAnt class that implements Automaton2Dim. Contains wireworld game rules.
+ */
 public class LangtonAnt extends Automaton2Dim {
     private final int width;
     private final int height;
 
+
+    /**
+     * Constructor for LangtonAnt class.
+     * @param neighborsStrategy strategy used to find neighbors
+     * @param stateFactory State Factory used in generating map
+     * @param width automaton width
+     * @param height automaton heighth
+     */
     public LangtonAnt(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory, int width, int height) {
         super(neighborsStrategy, stateFactory, width, height);
         this.width = width;
         this.height = height;
     }
 
+
+    /**
+     * Method returning new instance of automaton class based on the current class.
+     * @param cellStateFactory state factory used to generate map
+     * @param cellNeighborhood neighborhood strategy used in the game
+     * @return {@link automaton.automaton.Automaton}
+     */
     protected Automaton newInstance(CellStateFactory cellStateFactory, CellNeighborhood cellNeighborhood) {
         return new LangtonAnt(cellNeighborhood, cellStateFactory, width, height);
     }
 
+    /**
+     * Method returning next cell's state based on it's neighbors' states
+     * @param targetCell cell's coordinates
+     * @param neighborsStates cell's coordinates
+     * @return {@link automaton.cell.LangtonCell} or {@link automaton.state.BinaryState}
+     */
     protected CellState nextCellState(Cell targetCell, Set<Cell> neighborsStates) {
         LangtonCell antCell;
         AntState antstate;

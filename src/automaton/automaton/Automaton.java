@@ -10,17 +10,28 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
+/**
+ * Automaton class that is base to the whole program.
+ */
 public abstract class Automaton {
     private final Map<CellCoordinates, CellState> cells = new HashMap<>();
     private final CellNeighborhood neighborsStrategy;
     private final CellStateFactory stateFactory;
 
+    /**
+     * Constructor for Automaton2Dim class.
+     * @param neighborsStrategy strategy used to find neighbors
+     * @param stateFactory State Factory used in generating map
+     */
     Automaton(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory) {
         this.neighborsStrategy = neighborsStrategy;
         this.stateFactory = stateFactory;
     }
 
+    /**
+     * Method initializing map based on state factory.
+     * @return void
+     */
     void initializeMap() {
         CellIterator iterator = cellIterator();
         while (iterator.hasNext()) {
@@ -30,10 +41,19 @@ public abstract class Automaton {
         }
     }
 
+    /**
+     * Getter method returning cells map.
+     * @return map with key of {@link automaton.coordinates.CellCoordinates} and value {@link automaton.state.CellState}
+     */
     public Map<CellCoordinates, CellState> getCells() {
         return cells;
     }
 
+    /**
+     * Essential method that whole program is based on. It creates new automaton class and fills it with new cell stages,
+     * based on current stages.
+     * @return {@link automaton.automaton.Automaton}
+     */
     public Automaton nextState() {
         Automaton newAuto = newInstance(stateFactory, neighborsStrategy);
         CellIterator iterator = newAuto.cellIterator();
@@ -48,6 +68,11 @@ public abstract class Automaton {
         return newAuto;
     }
 
+    /**
+     * Method used to insert predefined structures into map.
+     * @param structure map with key of {@link automaton.coordinates.CellCoordinates} and value {@link automaton.state.CellState}
+     * @return void
+     */
     public void insertStructure(Map<? extends CellCoordinates, ? extends CellState> structure) {
         for (Map.Entry<? extends CellCoordinates, ? extends CellState> entry : structure.entrySet()) {
             cells.put(entry.getKey(), entry.getValue());

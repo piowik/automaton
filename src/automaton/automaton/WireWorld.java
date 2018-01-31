@@ -12,11 +12,20 @@ import java.util.Set;
 
 import static automaton.state.WireElectronState.*;
 
+/**
+ * Wireworld class that implements Automaton2Dim. Contains wireworld game rules.
+ */
 public class WireWorld extends Automaton2Dim {
     private final int width;
     private final int height;
 
 
+
+    /**
+     * Helping method that converts integers in map from file to cell states
+     * @param mapFromFile int array
+     * @return map with key of {@link automaton.coordinates.Coords2D} and value {@link automaton.state.BinaryState}
+     */
 
     public static Map<CellCoordinates, CellState> convert(Map<CellCoordinates, Integer> mapFromFile)
     {
@@ -38,15 +47,37 @@ public class WireWorld extends Automaton2Dim {
         return convertedMap;
     }
 
+    /**
+     * Constructor for Wireworld class.
+     * @param neighborsStrategy strategy used to find neighbors
+     * @param stateFactory State Factory used in generating map
+     * @param width automaton width
+     * @param height automaton heighth
+     */
     public WireWorld(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory, int width, int height) {
         super(neighborsStrategy, stateFactory, width, height);
         this.width = width;
         this.height = height;
     }
 
+
+    /**
+     * Method returning new instance of automaton class based on the current class.
+     * @param cellStateFactory state factory used to generate map
+     * @param cellNeighborhood neighborhood strategy used in the game
+     * @return {@link automaton.state.WireElectronState}
+     */
     protected Automaton newInstance(CellStateFactory cellStateFactory, CellNeighborhood cellNeighborhood) {
         return new WireWorld(cellNeighborhood, cellStateFactory, width, height);
     }
+
+
+    /**
+     * Method returning next cell's state based on it's neighbors' states
+     * @param targetCell cell's coordinates
+     * @param neighborsStates cell's coordinates
+     * @return {@link automaton.state.WireElectronState}
+     */
 
     protected CellState nextCellState(Cell targetCell, Set<Cell> neighborsStates) {
         CellState currentState = targetCell.state;
