@@ -57,14 +57,15 @@ public class GameOfLife extends Automaton2Dim {
         return convertedMap;
     }
 
-
     /**
      * Constructor for GameOfLife class.
      *
-     * @param neighborsStrategy strategy used to find neighbors
-     * @param stateFactory      State Factory used in generating map
-     * @param width             automaton width
-     * @param height            automaton heighth
+     * @param neighborsStrategy      strategy used to find neighbors
+     * @param stateFactory           State Factory used in generating map
+     * @param width                  automaton width
+     * @param height                 automaton heighth
+     * @param neighborsToNotDie      integer array with rule when cells shouldn't die
+     * @param neighborsToStartLiving integer array with rule when cells should start living
      */
     public GameOfLife(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory, int width, int height, int[] neighborsToNotDie, int[] neighborsToStartLiving) {
         super(neighborsStrategy, stateFactory, width, height);
