@@ -25,11 +25,18 @@ public class VonNeumanNeighborhood implements CellNeighborhood {
     public Set<CellCoordinates> cellNeighborhood(CellCoordinates cellCoordinates) {
         Set<CellCoordinates> neighbors = new HashSet<>();
         Coords2D coords = (Coords2D) cellCoordinates;
-        for (int i = 0; i < width; i++)
-            for (int j = 0; j < height; j++)
-                if ((Math.abs(i - coords.x) + Math.abs(j - coords.y)) <= r && (Math.abs(i - coords.x) + Math.abs(j - coords.y)) != 0)
-                    neighbors.add(new Coords2D(i, j));
-
+        if(r==1) {
+            neighbors.add(new Coords2D(coords.x-1,coords.y) );
+            neighbors.add(new Coords2D(coords.x+1,coords.y) );
+            neighbors.add(new Coords2D(coords.x,coords.y-1) );
+            neighbors.add(new Coords2D(coords.x,coords.y+1) );
+        }
+        else {
+            for (int i = 0; i < width; i++)
+                for (int j = 0; j < height; j++)
+                    if ((Math.abs(i - coords.x) + Math.abs(j - coords.y)) <= r && (Math.abs(i - coords.x) + Math.abs(j - coords.y)) != 0)
+                        neighbors.add(new Coords2D(i, j));
+        }
         Set<CellCoordinates> fixedNeighbors = new HashSet<>();
         if(wrap)
         {
