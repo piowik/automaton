@@ -21,6 +21,9 @@ import java.util.Map;
 import static automaton.state.BinaryState.ALIVE;
 import static automaton.state.BinaryState.DEAD;
 
+/**
+ * Class containing GUI for 1d automatons
+ */
 public class GUI1D {
     private JFrame mainFrame;
     private final GPanel planePanel = new GPanel();
@@ -57,7 +60,7 @@ public class GUI1D {
         startGameButton.addActionListener(e -> {
             String ruleText = ruleTextField.getText();
             boolean error = false;
-            if (ruleText.isEmpty() || !isInteger(ruleText, 10))
+            if (ruleText.isEmpty() || !isInteger(ruleText))
                 error = true;
             else {
                 int ruleInteger = Integer.parseInt(ruleText);
@@ -114,6 +117,9 @@ public class GUI1D {
         mainFrame.setVisible(true);
     }
 
+    /**
+     * Starts one dimensional automaton
+     */
     private void startOneDim() {
         mapArrayList.clear();
         steps = stepsToDo;
@@ -129,7 +135,9 @@ public class GUI1D {
         mainFrame.repaint();
     }
 
-
+    /**
+     * JPanel extension used to draw cells
+     */
     class GPanel extends JPanel {
         @Override
         public void paintComponent(Graphics g) {
@@ -148,14 +156,19 @@ public class GUI1D {
         }
     }
 
-    private static boolean isInteger(String s, int radix) {
+    /**
+     * Checks if string is integer
+     * @param s string to check
+     * @return <code>true</code> if integer
+     */
+    private static boolean isInteger(String s) {
         if (s.isEmpty()) return false;
         for (int i = 0; i < s.length(); i++) {
             if (i == 0 && s.charAt(i) == '-') {
                 if (s.length() == 1) return false;
                 else continue;
             }
-            if (Character.digit(s.charAt(i), radix) < 0) return false;
+            if (Character.digit(s.charAt(i), 10) < 0) return false;
         }
         return true;
     }
