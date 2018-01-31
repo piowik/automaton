@@ -6,10 +6,10 @@ import automaton.factory.CellStateFactory;
 import automaton.neighborhood.CellNeighborhood;
 
 public abstract class Automaton2Dim extends Automaton {
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
 
-    public Automaton2Dim(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory, int width, int height) {
+    Automaton2Dim(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory, int width, int height) {
         super(neighborsStrategy, stateFactory);
         this.width = width;
         this.height = height;

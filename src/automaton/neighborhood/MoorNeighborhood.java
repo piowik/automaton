@@ -10,10 +10,10 @@ import java.util.Set;
  * Class used for getting cell's neighbors based on MoorNeighborhood (2D)
  */
 public class MoorNeighborhood implements CellNeighborhood {
-    private int width;
-    private int height;
-    private boolean wrap;
-    private int r;
+    private final int width;
+    private final int height;
+    private final boolean wrap;
+    private final int r;
 
     /**
      * Constructor for MoorNeighborhood class.

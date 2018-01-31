@@ -9,16 +9,15 @@ import automaton.state.CellState;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.IntStream;
 
 import static automaton.state.BinaryState.ALIVE;
 import static automaton.state.BinaryState.DEAD;
 
 public class GameOfLife extends Automaton2Dim {
-    private int width;
-    private int height;
-    private int[] neighborsToNotDie;
-    private int[] neighborsToStartLiving;
+    private final int width;
+    private final int height;
+    private final int[] neighborsToNotDie;
+    private final int[] neighborsToStartLiving;
 
     private static boolean contains(int[] arr, int item) {
         for (int n : arr) {

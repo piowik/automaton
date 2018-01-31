@@ -11,7 +11,7 @@ public class LangtonCell implements CellState {
         this.cellState = cellState;
     }
 
-    public AntState antState;
-    public int antId;
-    public BinaryState cellState;
+    public final AntState antState;
+    public final int antId;
+    public final BinaryState cellState;
 }

@@ -1,7 +1,7 @@
 package automaton.coordinates;
 
 public class Coords1D implements CellCoordinates {
-    public int x;
+    public final int x;
 
     public Coords1D(int x) {
         this.x = x;

@@ -6,7 +6,7 @@ import automaton.state.CellState;
 import java.util.Map;
 
 public class GeneralStateFactory implements CellStateFactory {
-    private Map<CellCoordinates, CellState> states;
+    private final Map<CellCoordinates, CellState> states;
 
     public GeneralStateFactory(Map<CellCoordinates, CellState> states) {
         this.states = states;

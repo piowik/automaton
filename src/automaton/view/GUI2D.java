@@ -30,14 +30,12 @@ public class GUI2D {
     private int[] neighborsToStartLiving = {3};
 
     private JFrame mainFrame;
-    private GPanel planePanel;
     private JCheckBox wrapCheckbox;
     private JTextField cellsToLiveTextField;
     private JTextField cellsToBecomeAliveTextField;
     private Automaton currentGame;
     private Map<CellCoordinates, CellState> cellsMap = new HashMap<>();
     private JSpinner rSpinner, tickSpinner;
-    private JComboBox<String> gameComboBox;
     private JComboBox<String> neighborhoodComboBox;
     private JComboBox<String> insertComboBox;
     private JButton autoModeButton;
@@ -67,7 +65,7 @@ public class GUI2D {
         mainFrame.setSize(window_width, window_height);
         mainFrame.setLayout(null); //using no layout managers
 
-        gameComboBox = new JComboBox<>();
+        JComboBox<String> gameComboBox = new JComboBox<>();
         neighborhoodComboBox = new JComboBox<>();
         JLabel cellsToLiveLabel = new JLabel("To live");
         JLabel cellsToBecomeAliveLabel = new JLabel("To be born");
@@ -89,7 +87,7 @@ public class GUI2D {
         JLabel insertLabel = new JLabel("Insert");
         insertComboBox = new JComboBox<>();
 
-        planePanel = new GPanel();
+        GPanel planePanel = new GPanel();
 
         autoModeButton.setEnabled(false);
         nextStepButton.setEnabled(false);

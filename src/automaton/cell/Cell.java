@@ -4,8 +4,8 @@ import automaton.coordinates.CellCoordinates;
 import automaton.state.CellState;
 
 public class Cell {
-    public CellState state;
-    public CellCoordinates coords;
+    public final CellState state;
+    public final CellCoordinates coords;
 
     public Cell(CellState state, CellCoordinates coords) {
         this.state = state;

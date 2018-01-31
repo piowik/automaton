@@ -13,8 +13,8 @@ import java.util.Set;
 import static automaton.state.WireElectronState.*;
 
 public class WireWorld extends Automaton2Dim {
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
 
 
 

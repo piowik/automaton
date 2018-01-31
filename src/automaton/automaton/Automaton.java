@@ -12,16 +12,16 @@ import java.util.Map;
 import java.util.Set;
 
 public abstract class Automaton {
-    private Map<CellCoordinates, CellState> cells = new HashMap<>();
-    private CellNeighborhood neighborsStrategy;
-    private CellStateFactory stateFactory;
+    private final Map<CellCoordinates, CellState> cells = new HashMap<>();
+    private final CellNeighborhood neighborsStrategy;
+    private final CellStateFactory stateFactory;
 
-    public Automaton(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory) {
+    Automaton(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory) {
         this.neighborsStrategy = neighborsStrategy;
         this.stateFactory = stateFactory;
     }
 
-    protected void initializeMap() {
+    void initializeMap() {
         CellIterator iterator = cellIterator();
         while (iterator.hasNext()) {
             CellCoordinates cellCoords = iterator.next();
@@ -87,7 +87,7 @@ public abstract class Automaton {
             return currentCoords;
         }
 
-        public void setState(CellState newState) {
+        void setState(CellState newState) {
             cells.put(currentCoords, newState);
         }
     }

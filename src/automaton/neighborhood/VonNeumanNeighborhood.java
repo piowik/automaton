@@ -26,10 +26,10 @@ public class VonNeumanNeighborhood implements CellNeighborhood {
         this.r = r;
     }
 
-    private int width;
-    private int height;
-    private boolean wrap;
-    private int r;
+    private final int width;
+    private final int height;
+    private final boolean wrap;
+    private final int r;
 
     /**
      * Method returning neighbors based on VonNeuman neighborhood

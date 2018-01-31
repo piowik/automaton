@@ -14,8 +14,8 @@ import static automaton.state.BinaryState.ALIVE;
 import static automaton.state.BinaryState.DEAD;
 
 public class LangtonAnt extends Automaton2Dim {
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
 
     public LangtonAnt(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory, int width, int height) {
         super(neighborsStrategy, stateFactory, width, height);

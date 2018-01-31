@@ -6,9 +6,9 @@ import automaton.factory.CellStateFactory;
 import automaton.neighborhood.CellNeighborhood;
 
 public abstract class Automaton1Dim extends Automaton {
-    private int size;
+    private final int size;
 
-    public Automaton1Dim(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory, int size) {
+    Automaton1Dim(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory, int size) {
         super(neighborsStrategy, stateFactory);
         this.size = size;
         super.initializeMap();

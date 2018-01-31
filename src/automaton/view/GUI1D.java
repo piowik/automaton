@@ -23,21 +23,21 @@ import static automaton.state.BinaryState.DEAD;
 
 public class GUI1D {
     private JFrame mainFrame;
-    private GPanel planePanel = new GPanel();
+    private final GPanel planePanel = new GPanel();
     private Automaton currentGame;
-    private JButton nextStepButton = new JButton("Next step");
-    private JButton allStepsButton = new JButton("All steps");
-    private JButton startGameButton = new JButton("Start");
-    private JLabel ruleLabel = new JLabel("Rule");
+    private final JButton nextStepButton = new JButton("Next step");
+    private final JButton allStepsButton = new JButton("All steps");
+    private final JButton startGameButton = new JButton("Start");
+    private final JLabel ruleLabel = new JLabel("Rule");
     private Map<CellCoordinates, CellState> cellsMap = new HashMap<>();
-    private ArrayList<Map<CellCoordinates, CellState>> mapArrayList = new ArrayList<>();
-    private JTextField ruleTextField = new JTextField("30");
-    private int size = 170;
-    private int stepsToDo = 80;
+    private final ArrayList<Map<CellCoordinates, CellState>> mapArrayList = new ArrayList<>();
+    private final JTextField ruleTextField = new JTextField("30");
+    private final int size = 170;
+    private final int stepsToDo = 80;
 
-    private int window_width = 700;
-    private int window_height = 440;
-    private int ZOOM = 4;
+    private final int window_width = 700;
+    private final int window_height = 440;
+    private final int ZOOM = 4;
     private int steps;
 
     public static void main(String[] args) {

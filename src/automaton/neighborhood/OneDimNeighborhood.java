@@ -2,7 +2,6 @@ package automaton.neighborhood;
 
 import automaton.coordinates.CellCoordinates;
 import automaton.coordinates.Coords1D;
-import automaton.coordinates.Coords2D;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,7 +10,7 @@ import java.util.Set;
  * Class used for getting cell's neighbors in one dimensional automaton
  */
 public class OneDimNeighborhood implements CellNeighborhood {
-    private int size;
+    private final int size;
 
     /**
      * Constructor for OneDimNeighborhood class

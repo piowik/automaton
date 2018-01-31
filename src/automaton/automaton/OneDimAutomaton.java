@@ -12,9 +12,9 @@ import static automaton.state.BinaryState.ALIVE;
 import static automaton.state.BinaryState.DEAD;
 
 public class OneDimAutomaton extends Automaton1Dim {
-    private int size;
-    private int[] binaryRule = new int[8];
-    private int rule;
+    private final int size;
+    private final int[] binaryRule = new int[8];
+    private final int rule;
 
     public OneDimAutomaton(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory, int size, int rule) {
         super(neighborsStrategy, stateFactory, size);
