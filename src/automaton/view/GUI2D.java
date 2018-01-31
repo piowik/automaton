@@ -25,6 +25,9 @@ import java.util.Map;
 import static automaton.state.BinaryState.ALIVE;
 import static automaton.state.BinaryState.DEAD;
 
+/**
+ * Class containing GUI for 2d automatons
+ */
 public class GUI2D {
     private int[] neighborsToNotDie = {2, 3};
     private int[] neighborsToStartLiving = {3};
@@ -41,7 +44,7 @@ public class GUI2D {
     private JButton autoModeButton;
     private boolean isAuto = false;
 
-    private int selectedGame = 0;
+    private int selectedAutomatonId = 0;
     private int selectedNeighborhood = 0;
     private int width;
     private int height;
@@ -65,7 +68,7 @@ public class GUI2D {
         mainFrame.setSize(window_width, window_height);
         mainFrame.setLayout(null); //using no layout managers
 
-        JComboBox<String> gameComboBox = new JComboBox<>();
+        JComboBox<String> automatonComboBox = new JComboBox<>();
         neighborhoodComboBox = new JComboBox<>();
         JLabel cellsToLiveLabel = new JLabel("To live");
         JLabel cellsToBecomeAliveLabel = new JLabel("To be born");
@@ -95,17 +98,17 @@ public class GUI2D {
         next5000Steps.setEnabled(false);
 
         // initialize comboBoxes
-        gameComboBox.addItem("Game of Life");
-        gameComboBox.addItem("Wireworld");
-        gameComboBox.addItem("Langton Ant");
+        automatonComboBox.addItem("Game of Life");
+        automatonComboBox.addItem("Wireworld");
+        automatonComboBox.addItem("Langton Ant");
         neighborhoodComboBox.addItem("Moore Neighborhood");
         neighborhoodComboBox.addItem("VonNeuman Neighborhood");
 
         updateInterface(0);
 
-        gameComboBox.addActionListener(e -> {
-            selectedGame = ((JComboBox) e.getSource()).getSelectedIndex();
-            updateInterface(selectedGame);
+        automatonComboBox.addActionListener(e -> {
+            selectedAutomatonId = ((JComboBox) e.getSource()).getSelectedIndex();
+            updateInterface(selectedAutomatonId);
         });
         neighborhoodComboBox.addActionListener(e -> selectedNeighborhood = ((JComboBox) e.getSource()).getSelectedIndex());
         planePanel.addMouseListener(new MouseAdapter() {
@@ -155,7 +158,7 @@ public class GUI2D {
                 isAuto = false;
                 autoModeButton.setText("Auto");
             }
-            if (selectedGame == 0) {// GameOfLife
+            if (selectedAutomatonId == 0) {// GameOfLife
                 String stringToParse2 = cellsToBecomeAliveTextField.getText();
                 String stringToParse1 = cellsToLiveTextField.getText();
                 if (stringToParse1.length() > 0) {
@@ -167,7 +170,7 @@ public class GUI2D {
             }
             CellNeighborhood neighborhood;
             int r = (int) rSpinner.getValue();
-            switch (selectedGame) {
+            switch (selectedAutomatonId) {
                 case 0:
                     width = 95;
                     height = 95;
@@ -190,7 +193,7 @@ public class GUI2D {
                 neighborhood = new MoorNeighborhood(width, height, wrapCheckbox.isSelected(), r);
             else
                 neighborhood = new VonNeumanNeighborhood(width, height, wrapCheckbox.isSelected(), r);
-            switch (selectedGame) {
+            switch (selectedAutomatonId) {
                 case 0:
                     startGameOfLife(neighborhood);
                     break;
@@ -215,7 +218,7 @@ public class GUI2D {
 
         // layout
         // 1st row
-        gameComboBox.setBounds(0, 0, 150, 40);
+        automatonComboBox.setBounds(0, 0, 150, 40);
         neighborhoodComboBox.setBounds(150, 0, 150, 40);
         cellsToLiveLabel.setBounds(300, 0, 100, 20);
         cellsToBecomeAliveLabel.setBounds(300, 20, 100, 20);
@@ -239,7 +242,7 @@ public class GUI2D {
 
         // 1st row
         mainFrame.add(neighborhoodComboBox);
-        mainFrame.add(gameComboBox);
+        mainFrame.add(automatonComboBox);
         mainFrame.add(cellsToBecomeAliveLabel);
         mainFrame.add(cellsToLiveLabel);
         mainFrame.add(cellsToBecomeAliveTextField);
@@ -269,6 +272,12 @@ public class GUI2D {
         mainFrame.setVisible(true);
     }
 
+    /**
+     * Method used for parsing string e.g. "23" returns int[] = {2,3}.
+     * Used for setting custom game of life rules
+     * @param str string to parse
+     * @return returns array of integers
+     */
     private int[] parseValues(String str) {
         int[] result = new int[str.length()];
         for (int i = 0; i < str.length(); i++) {
@@ -277,16 +286,29 @@ public class GUI2D {
         return result;
     }
 
+    /**
+     * Starts wire world automaton
+     * @param neighborhood takes neighborhood strategy
+     */
     private void startWireWorld(CellNeighborhood neighborhood) {
         UniformStateFactory uniformStateFactory = new UniformStateFactory(WireElectronState.VOID);
         currentGame = new WireWorld(neighborhood, uniformStateFactory, width, height);
     }
 
+    /**
+     * Starts game of life automaton
+     * @param neighborhood takes neighborhood strategy
+     */
     private void startGameOfLife(CellNeighborhood neighborhood) {
         UniformStateFactory uniformStateFactory = new UniformStateFactory(DEAD);
         currentGame = new GameOfLife(neighborhood, uniformStateFactory, width, height, neighborsToNotDie, neighborsToStartLiving);
     }
 
+
+    /**
+     * Starts langton ant automaton
+     * @param neighborhood takes neighborhood strategy
+     */
     private void startLangtonAnt(CellNeighborhood neighborhood) {
         UniformStateFactory uniformStateFactory = new UniformStateFactory(BinaryState.DEAD);
         currentGame = new LangtonAnt(neighborhood, uniformStateFactory, width, height);
@@ -298,7 +320,9 @@ public class GUI2D {
         currentGame.insertStructure(testStructure);
     }
 
-
+    /**
+     * JPanel extension used to draw cells
+     */
     class GPanel extends JPanel {
         @Override
         public void paintComponent(Graphics g) {
@@ -333,6 +357,9 @@ public class GUI2D {
         }
     }
 
+    /**
+     * Used to do next states automatically after pressing "Auto" button
+     */
     class Automate extends SwingWorker<String, Object> {
         @Override
         public String doInBackground() {
@@ -357,6 +384,10 @@ public class GUI2D {
         }
     }
 
+    /**
+     * Tells automaton to calculate next X states
+     * @param steps number of states to do
+     */
     private void nextState(int steps) {
         for (int i = 0; i < steps; i++) {
             currentGame = currentGame.nextState();
@@ -366,9 +397,13 @@ public class GUI2D {
         mainFrame.repaint();
     }
 
-    private void updateInterface(int gameId) {
+    /**
+     * Updates interface based on selected automaton
+     * @param automatonId automaton ID selected in automatonComboBox
+     */
+    private void updateInterface(int automatonId) {
         insertComboBox.removeAllItems();
-        switch (gameId) {
+        switch (automatonId) {
             case 0:
                 insertComboBox.addItem("Cell");
                 insertComboBox.addItem("Blinker");
