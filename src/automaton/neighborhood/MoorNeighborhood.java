@@ -6,12 +6,23 @@ import automaton.coordinates.Coords2D;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Class used for getting cell's neighbors based on MoorNeighborhood (2D)
+ */
 public class MoorNeighborhood implements CellNeighborhood {
     private int width;
     private int height;
     private boolean wrap;
     private int r;
 
+    /**
+     * Constructor for MoorNeighborhood class.
+     * @param width map width
+     * @param height map height
+     * @param wrap <code>true</code> - map wrapping enabled, neighborhood
+     *             <code>false</code> - map wrapping disabled
+     * @param r range for neighborhood calculation
+     */
     public MoorNeighborhood(int width, int height, boolean wrap, int r) {
         this.width = width;
         this.height = height;
@@ -19,6 +30,11 @@ public class MoorNeighborhood implements CellNeighborhood {
         this.r = r;
     }
 
+    /**
+     * Method returning neighbors based on Moor neighborhood
+     * @param cellCoordinates cell's coordinates
+     * @return set of {@link automaton.coordinates.Coords2D}
+     */
     public Set<CellCoordinates> cellNeighborhood(CellCoordinates cellCoordinates) {
         Coords2D coords = (Coords2D) cellCoordinates;
         Set<CellCoordinates> neighbors = new HashSet<>();
@@ -50,7 +66,7 @@ public class MoorNeighborhood implements CellNeighborhood {
         }
         else
         {
-            boolean isOkay=true;
+            boolean isOkay;
             for(CellCoordinates n:neighbors ){
                 isOkay=true;
                 Coords2D nCoordinates = (Coords2D) n;

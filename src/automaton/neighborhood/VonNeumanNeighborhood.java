@@ -7,9 +7,18 @@ import java.util.HashSet;
 import java.util.Set;
 
 
+/**
+ * Class used for getting cell's neighbors based on VonNeumanNeighborhood (2D)
+ */
 public class VonNeumanNeighborhood implements CellNeighborhood {
-
-
+    /**
+     * Constructor for VonNeumanNeighborhood class.
+     * @param width map width
+     * @param height map height
+     * @param wrap <code>true</code> - map wrapping enabled, neighborhood
+     *             <code>false</code> - map wrapping disabled
+     * @param r range for neighborhood calculation
+     */
     public VonNeumanNeighborhood(int width, int height, boolean wrap, int r) {
         this.width = width;
         this.height = height;
@@ -22,6 +31,11 @@ public class VonNeumanNeighborhood implements CellNeighborhood {
     private boolean wrap;
     private int r;
 
+    /**
+     * Method returning neighbors based on VonNeuman neighborhood
+     * @param cellCoordinates cell's coordinates
+     * @return set of {@link automaton.coordinates.Coords2D}
+     */
     public Set<CellCoordinates> cellNeighborhood(CellCoordinates cellCoordinates) {
         Set<CellCoordinates> neighbors = new HashSet<>();
         Coords2D coords = (Coords2D) cellCoordinates;
@@ -55,7 +69,7 @@ public class VonNeumanNeighborhood implements CellNeighborhood {
         }
         else
         {
-            boolean isOkay=true;
+            boolean isOkay;
             for(CellCoordinates n:neighbors ){
                 isOkay=true;
                 Coords2D nCoordinates = (Coords2D) n;
