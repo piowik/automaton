@@ -8,8 +8,9 @@ import automaton.neighborhood.CellNeighborhood;
 public abstract class Automaton1Dim extends Automaton {
     private int size;
 
-    public Automaton1Dim(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory) {
+    public Automaton1Dim(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory, int size) {
         super(neighborsStrategy, stateFactory);
+        this.size = size;
         super.initializeMap();
     }
 
