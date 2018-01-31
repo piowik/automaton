@@ -9,6 +9,7 @@ public class Coords1D implements CellCoordinates {
 
     /**
      * Constructor for Coords1D class.
+     *
      * @param x x coordinate
      */
     public Coords1D(int x) {
@@ -18,6 +19,7 @@ public class Coords1D implements CellCoordinates {
 
     /**
      * Method used to compare Coordinates in HashSet
+     *
      * @param obj Object class
      * @return boolean
      */
@@ -36,6 +38,7 @@ public class Coords1D implements CellCoordinates {
 
     /**
      * Method giving hash code of a coordinate, needed to compare in HashSet
+     *
      * @return boolean
      */
 

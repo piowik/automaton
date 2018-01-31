@@ -28,7 +28,7 @@ import static automaton.state.BinaryState.DEAD;
 /**
  * Class containing GUI for 2d automatons
  */
-public class GUI2D {
+class GUI2D {
     private int[] neighborsToNotDie = {2, 3};
     private int[] neighborsToStartLiving = {3};
 
@@ -275,6 +275,7 @@ public class GUI2D {
     /**
      * Method used for parsing string e.g. "23" returns int[] = {2,3}.
      * Used for setting custom game of life rules
+     *
      * @param str string to parse
      * @return returns array of integers
      */
@@ -288,6 +289,7 @@ public class GUI2D {
 
     /**
      * Starts wire world automaton
+     *
      * @param neighborhood takes neighborhood strategy
      */
     private void startWireWorld(CellNeighborhood neighborhood) {
@@ -297,6 +299,7 @@ public class GUI2D {
 
     /**
      * Starts game of life automaton
+     *
      * @param neighborhood takes neighborhood strategy
      */
     private void startGameOfLife(CellNeighborhood neighborhood) {
@@ -307,6 +310,7 @@ public class GUI2D {
 
     /**
      * Starts langton ant automaton
+     *
      * @param neighborhood takes neighborhood strategy
      */
     private void startLangtonAnt(CellNeighborhood neighborhood) {
@@ -386,6 +390,7 @@ public class GUI2D {
 
     /**
      * Tells automaton to calculate next X states
+     *
      * @param steps number of states to do
      */
     private void nextState(int steps) {
@@ -399,6 +404,7 @@ public class GUI2D {
 
     /**
      * Updates interface based on selected automaton
+     *
      * @param automatonId automaton ID selected in automatonComboBox
      */
     private void updateInterface(int automatonId) {

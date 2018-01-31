@@ -20,28 +20,24 @@ public class WireWorld extends Automaton2Dim {
     private final int height;
 
 
-
     /**
      * Helping method that converts integers in map from file to cell states
+     *
      * @param mapFromFile int array
      * @return map with key of {@link automaton.coordinates.Coords2D} and value {@link automaton.state.BinaryState}
      */
 
-    public static Map<CellCoordinates, CellState> convert(Map<CellCoordinates, Integer> mapFromFile)
-    {
-        Map<CellCoordinates,CellState> convertedMap = new HashMap<>();
+    public static Map<CellCoordinates, CellState> convert(Map<CellCoordinates, Integer> mapFromFile) {
+        Map<CellCoordinates, CellState> convertedMap = new HashMap<>();
         for (Map.Entry<CellCoordinates, Integer> entry : mapFromFile.entrySet()) {
-            if(entry.getValue()==0)
+            if (entry.getValue() == 0)
                 convertedMap.put(entry.getKey(), VOID);
-            else
-                if(entry.getValue()==1)
+            else if (entry.getValue() == 1)
                 convertedMap.put(entry.getKey(), WIRE);
-            else
-                if(entry.getValue()==2)
-                    convertedMap.put(entry.getKey(), ELECTRON_TAIL);
-                else
-                if(entry.getValue()==3)
-                    convertedMap.put(entry.getKey(), ELECTRON_HEAD);
+            else if (entry.getValue() == 2)
+                convertedMap.put(entry.getKey(), ELECTRON_TAIL);
+            else if (entry.getValue() == 3)
+                convertedMap.put(entry.getKey(), ELECTRON_HEAD);
         }
 
         return convertedMap;
@@ -49,10 +45,11 @@ public class WireWorld extends Automaton2Dim {
 
     /**
      * Constructor for Wireworld class.
+     *
      * @param neighborsStrategy strategy used to find neighbors
-     * @param stateFactory State Factory used in generating map
-     * @param width automaton width
-     * @param height automaton heighth
+     * @param stateFactory      State Factory used in generating map
+     * @param width             automaton width
+     * @param height            automaton heighth
      */
     public WireWorld(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory, int width, int height) {
         super(neighborsStrategy, stateFactory, width, height);
@@ -63,6 +60,7 @@ public class WireWorld extends Automaton2Dim {
 
     /**
      * Method returning new instance of automaton class based on the current class.
+     *
      * @param cellStateFactory state factory used to generate map
      * @param cellNeighborhood neighborhood strategy used in the game
      * @return {@link automaton.state.WireElectronState}
@@ -74,12 +72,13 @@ public class WireWorld extends Automaton2Dim {
 
     /**
      * Method returning next cell's state based on it's neighbors' states
-     * @param targetCell cell's coordinates
-     * @param neighborsStates cell's coordinates
+     *
+     * @param targetCell     cell's coordinates
+     * @param neighborsCells cell's neighbors
      * @return {@link automaton.state.WireElectronState}
      */
 
-    protected CellState nextCellState(Cell targetCell, Set<Cell> neighborsStates) {
+    protected CellState nextCellState(Cell targetCell, Set<Cell> neighborsCells) {
         CellState currentState = targetCell.state;
         if (currentState == ELECTRON_HEAD)
             return ELECTRON_TAIL;
@@ -87,7 +86,7 @@ public class WireWorld extends Automaton2Dim {
             return WIRE;
         else if (currentState == WIRE) {
             int headsCounter = 0;
-            for (Cell c : neighborsStates) {
+            for (Cell c : neighborsCells) {
                 if (c.state == ELECTRON_HEAD)
                     headsCounter++;
             }

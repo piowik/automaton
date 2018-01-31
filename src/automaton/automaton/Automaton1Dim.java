@@ -14,9 +14,10 @@ public abstract class Automaton1Dim extends Automaton {
 
     /**
      * Constructor for Automaton1Dim class.
+     *
      * @param neighborsStrategy strategy used to find neighbors
-     * @param stateFactory State Factory used in generating map
-     * @param size automaton size
+     * @param stateFactory      State Factory used in generating map
+     * @param size              automaton size
      */
     Automaton1Dim(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory, int size) {
         super(neighborsStrategy, stateFactory);
@@ -26,6 +27,7 @@ public abstract class Automaton1Dim extends Automaton {
 
     /**
      * Method checking if next coordinates exist based on current coordinates
+     *
      * @param cellCoordinates current coordinates
      * @return boolean
      */
@@ -34,16 +36,20 @@ public abstract class Automaton1Dim extends Automaton {
         Coords1D coords = (Coords1D) cellCoordinates;
         return (!(coords.x == size - 1));
     }
+
     /**
      * Method returning first coordinates.
+     *
      * @return {@link automaton.coordinates.Coords1D}
      */
 
     protected CellCoordinates initialCoordinates() {
         return new Coords1D(-1);
     }
+
     /**
      * Method returning next coordinates based on current coordinates.
+     *
      * @param cellCoordinates current cooridnates
      * @return {@link automaton.coordinates.Coords1D}
      */

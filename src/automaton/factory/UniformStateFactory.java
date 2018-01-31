@@ -11,6 +11,7 @@ public class UniformStateFactory implements CellStateFactory {
 
     /**
      * Constructor for GeneralStateFactory class.
+     *
      * @param state cell state
      */
     public UniformStateFactory(CellState state) {
@@ -19,6 +20,7 @@ public class UniformStateFactory implements CellStateFactory {
 
     /**
      * Method returning cell's state based on cell coordinates
+     *
      * @param coords cell's coordinates
      * @return {@link automaton.cell.Cell}
      */

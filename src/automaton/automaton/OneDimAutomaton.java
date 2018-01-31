@@ -21,10 +21,11 @@ public class OneDimAutomaton extends Automaton1Dim {
 
     /**
      * Constructor for OneDimAutomaton class.
+     *
      * @param neighborsStrategy strategy used to find neighbors
-     * @param stateFactory State Factory used in generating map
-     * @param size automaton size
-     * @param rule one dimensional automton rules
+     * @param stateFactory      State Factory used in generating map
+     * @param size              automaton size
+     * @param rule              one dimensional automton rules
      */
     public OneDimAutomaton(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory, int size, int rule) {
         super(neighborsStrategy, stateFactory, size);
@@ -37,8 +38,10 @@ public class OneDimAutomaton extends Automaton1Dim {
             i--;
         }
     }
+
     /**
      * Method returning new instance of automaton class based on the current class.
+     *
      * @param cellStateFactory state factory used to generate map
      * @param cellNeighborhood neighborhood strategy used in the game
      * @return {@link automaton.automaton.Automaton}
@@ -49,14 +52,15 @@ public class OneDimAutomaton extends Automaton1Dim {
 
     /**
      * Method returning next cell's state based on it's neighbors' states
-     * @param targetCell cell's coordinates
-     * @param neighborsStates cell's coordinates
+     *
+     * @param targetCell     cell's coordinates
+     * @param neighborsCells cell's neighbors
      * @return {@link automaton.state.BinaryState}
      */
-    protected CellState nextCellState(Cell targetCell, Set<Cell> neighborsStates) {
+    protected CellState nextCellState(Cell targetCell, Set<Cell> neighborsCells) {
         int neighborsValue = 0;
         Coords1D myCoords = (Coords1D) targetCell.coords;
-        for (Cell c : neighborsStates) {
+        for (Cell c : neighborsCells) {
             Coords1D neighborCoords = (Coords1D) c.coords;
             if (neighborCoords.x - 1 == myCoords.x && c.state == ALIVE)
                 neighborsValue += 1;
@@ -65,7 +69,7 @@ public class OneDimAutomaton extends Automaton1Dim {
             else if (neighborCoords.x + 1 == myCoords.x && c.state == ALIVE)
                 neighborsValue += 4;
         }
-        int myValue = binaryRule[7-neighborsValue];
+        int myValue = binaryRule[7 - neighborsValue];
         if (myValue == 1)
             return ALIVE;
         return DEAD;

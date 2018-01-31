@@ -15,10 +15,11 @@ public abstract class Automaton2Dim extends Automaton {
 
     /**
      * Constructor for Automaton2Dim class.
+     *
      * @param neighborsStrategy strategy used to find neighbors
-     * @param stateFactory State Factory used in generating map
-     * @param width automaton width
-     * @param height automaton heighth
+     * @param stateFactory      State Factory used in generating map
+     * @param width             automaton width
+     * @param height            automaton heighth
      */
     Automaton2Dim(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory, int width, int height) {
         super(neighborsStrategy, stateFactory);
@@ -30,6 +31,7 @@ public abstract class Automaton2Dim extends Automaton {
 
     /**
      * Method checking if next coordinates exist based on current coordinates
+     *
      * @param cellCoordinates current cooridnates
      * @return boolean
      */
@@ -41,6 +43,7 @@ public abstract class Automaton2Dim extends Automaton {
 
     /**
      * Method returning first coordinates.
+     *
      * @return {@link automaton.coordinates.Coords2D}
      */
     protected CellCoordinates initialCoordinates() {
@@ -49,6 +52,7 @@ public abstract class Automaton2Dim extends Automaton {
 
     /**
      * Method returning next coordinates based on current coordinates.
+     *
      * @param cellCoordinates current cooridnates
      * @return {@link automaton.coordinates.Coords2D}
      */

@@ -13,6 +13,7 @@ public class GeneralStateFactory implements CellStateFactory {
 
     /**
      * Constructor for GeneralStateFactory class.
+     *
      * @param states map of cell states with cooridnates
      */
     public GeneralStateFactory(Map<CellCoordinates, CellState> states) {
@@ -21,6 +22,7 @@ public class GeneralStateFactory implements CellStateFactory {
 
     /**
      * Method returning cell's state based on cell coordinates
+     *
      * @param coords cell's coordinates
      * @return {@link automaton.cell.Cell}
      */

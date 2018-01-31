@@ -12,6 +12,7 @@ import java.util.Set;
 
 import static automaton.state.BinaryState.ALIVE;
 import static automaton.state.BinaryState.DEAD;
+
 /**
  * LangtonAnt class that implements Automaton2Dim. Contains wireworld game rules.
  */
@@ -22,10 +23,11 @@ public class LangtonAnt extends Automaton2Dim {
 
     /**
      * Constructor for LangtonAnt class.
+     *
      * @param neighborsStrategy strategy used to find neighbors
-     * @param stateFactory State Factory used in generating map
-     * @param width automaton width
-     * @param height automaton heighth
+     * @param stateFactory      State Factory used in generating map
+     * @param width             automaton width
+     * @param height            automaton heighth
      */
     public LangtonAnt(CellNeighborhood neighborsStrategy, CellStateFactory stateFactory, int width, int height) {
         super(neighborsStrategy, stateFactory, width, height);
@@ -36,6 +38,7 @@ public class LangtonAnt extends Automaton2Dim {
 
     /**
      * Method returning new instance of automaton class based on the current class.
+     *
      * @param cellStateFactory state factory used to generate map
      * @param cellNeighborhood neighborhood strategy used in the game
      * @return {@link automaton.automaton.Automaton}
@@ -46,11 +49,12 @@ public class LangtonAnt extends Automaton2Dim {
 
     /**
      * Method returning next cell's state based on it's neighbors' states
-     * @param targetCell cell's coordinates
-     * @param neighborsStates cell's coordinates
+     *
+     * @param targetCell     cell's coordinates
+     * @param neighborsCells cell's neighbors
      * @return {@link automaton.cell.LangtonCell} or {@link automaton.state.BinaryState}
      */
-    protected CellState nextCellState(Cell targetCell, Set<Cell> neighborsStates) {
+    protected CellState nextCellState(Cell targetCell, Set<Cell> neighborsCells) {
         LangtonCell antCell;
         AntState antstate;
         int antid;
@@ -60,7 +64,7 @@ public class LangtonAnt extends Automaton2Dim {
             LangtonCell langtonCell = (LangtonCell) targetCell.state;
             return langtonCell.cellState;
         }
-        for (Cell c : neighborsStates) {
+        for (Cell c : neighborsCells) {
             if (c.state instanceof LangtonCell) {
                 antCell = (LangtonCell) c.state;
                 antstate = antCell.antState;

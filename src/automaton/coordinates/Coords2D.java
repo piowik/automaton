@@ -10,6 +10,7 @@ public class Coords2D implements CellCoordinates {
 
     /**
      * Constructor for Coords2D class.
+     *
      * @param x x coordinate
      * @param y y coordinate
      */
@@ -20,6 +21,7 @@ public class Coords2D implements CellCoordinates {
 
     /**
      * Method used to compare Coordinates in HashSet
+     *
      * @param obj Object class
      * @return boolean
      */
@@ -34,8 +36,10 @@ public class Coords2D implements CellCoordinates {
         Coords2D other = (Coords2D) obj;
         return other.x == x && other.y == y;
     }
+
     /**
      * Method giving hash code of a coordinate, needed to compare in HashSet
+     *
      * @return boolean
      */
 

@@ -24,7 +24,7 @@ import static automaton.state.BinaryState.DEAD;
 /**
  * Class containing GUI for 1d automatons
  */
-public class GUI1D {
+class GUI1D {
     private JFrame mainFrame;
     private final GPanel planePanel = new GPanel();
     private Automaton currentGame;
@@ -124,7 +124,7 @@ public class GUI1D {
         mapArrayList.clear();
         steps = stepsToDo;
         UniformStateFactory uniformStateFactory = new UniformStateFactory(DEAD);
-        currentGame = new OneDimAutomaton(new OneDimNeighborhood(size), uniformStateFactory, size, Integer.parseInt(ruleTextField.getText()));
+        currentGame = new OneDimAutomaton(new OneDimNeighborhood(), uniformStateFactory, size, Integer.parseInt(ruleTextField.getText()));
         Map<Coords1D, CellState> structureToInsert = new HashMap<>();
         int centerPos = size / 2;
         structureToInsert.put(new Coords1D(centerPos), BinaryState.ALIVE);
@@ -158,6 +158,7 @@ public class GUI1D {
 
     /**
      * Checks if string is integer
+     *
      * @param s string to check
      * @return <code>true</code> if integer
      */

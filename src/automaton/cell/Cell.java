@@ -12,7 +12,8 @@ public class Cell {
 
     /**
      * Constructor for Coords2D class.
-     * @param state state of the cell
+     *
+     * @param state  state of the cell
      * @param coords coordinates of the cell
      */
     public Cell(CellState state, CellCoordinates coords) {

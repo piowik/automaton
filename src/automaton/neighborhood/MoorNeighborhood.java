@@ -17,11 +17,12 @@ public class MoorNeighborhood implements CellNeighborhood {
 
     /**
      * Constructor for MoorNeighborhood class.
-     * @param width map width
+     *
+     * @param width  map width
      * @param height map height
-     * @param wrap <code>true</code> - map wrapping enabled, neighborhood
-     *             <code>false</code> - map wrapping disabled
-     * @param r range for neighborhood calculation
+     * @param wrap   <code>true</code> - map wrapping enabled, neighborhood
+     *               <code>false</code> - map wrapping disabled
+     * @param r      range for neighborhood calculation
      */
     public MoorNeighborhood(int width, int height, boolean wrap, int r) {
         this.width = width;
@@ -32,6 +33,7 @@ public class MoorNeighborhood implements CellNeighborhood {
 
     /**
      * Method returning neighbors based on Moor neighborhood
+     *
      * @param cellCoordinates cell's coordinates
      * @return set of {@link automaton.coordinates.Coords2D}
      */
@@ -49,36 +51,33 @@ public class MoorNeighborhood implements CellNeighborhood {
         }
 
         Set<CellCoordinates> fixedNeighbors = new HashSet<>();
-        if(wrap)
-        {
-            for(CellCoordinates n:neighbors ){
+        if (wrap) {
+            for (CellCoordinates n : neighbors) {
                 Coords2D nCoordinates = (Coords2D) n;
-                if(nCoordinates.x<0)
-                    nCoordinates.x=width+nCoordinates.x;
-                if(nCoordinates.y<0)
-                    nCoordinates.y=height+nCoordinates.y;
-                if(nCoordinates.x>=width)
-                    nCoordinates.x=nCoordinates.x-width;
-                if(nCoordinates.y>=height)
-                    nCoordinates.y=nCoordinates.y-height;
+                if (nCoordinates.x < 0)
+                    nCoordinates.x = width + nCoordinates.x;
+                if (nCoordinates.y < 0)
+                    nCoordinates.y = height + nCoordinates.y;
+                if (nCoordinates.x >= width)
+                    nCoordinates.x = nCoordinates.x - width;
+                if (nCoordinates.y >= height)
+                    nCoordinates.y = nCoordinates.y - height;
                 fixedNeighbors.add(nCoordinates);
             }
-        }
-        else
-        {
+        } else {
             boolean isOkay;
-            for(CellCoordinates n:neighbors ){
-                isOkay=true;
+            for (CellCoordinates n : neighbors) {
+                isOkay = true;
                 Coords2D nCoordinates = (Coords2D) n;
-                if(nCoordinates.x<0)
-                    isOkay=false;
-                if(nCoordinates.y<0)
-                    isOkay=false;
-                if(nCoordinates.x>=width)
-                    isOkay=false;
-                if(nCoordinates.y>=height)
-                    isOkay=false;
-                if(isOkay)
+                if (nCoordinates.x < 0)
+                    isOkay = false;
+                if (nCoordinates.y < 0)
+                    isOkay = false;
+                if (nCoordinates.x >= width)
+                    isOkay = false;
+                if (nCoordinates.y >= height)
+                    isOkay = false;
+                if (isOkay)
                     fixedNeighbors.add(nCoordinates);
             }
         }
