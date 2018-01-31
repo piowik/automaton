@@ -1,0 +1,7 @@
+automaton.automaton
+automaton.cell
+automaton.coordinates
+automaton.factory
+automaton.neighborhood
+automaton.state
+automaton.view
